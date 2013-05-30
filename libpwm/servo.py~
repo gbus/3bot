@@ -1,0 +1,44 @@
+from Adafruit_PWM_Servo_Driver import PWM
+
+
+class Servo( PWM ):
+	freq = 60
+	def __init__(self, ch=0, minp=190, maxp=520):
+		super(Servo, self).__init__()
+		self.min_pos		= minp
+		self.max_pos		= maxp
+		self.pos			= minp
+		self.channel		= ch
+		super(Servo, self).setPWMFreq(freq)	
+		
+#	def __init__( self, ch=0, minp=200, maxp=500 ):
+#		self.min_pos		= minp
+#		self.max_pos		= maxp
+#		self.pos		= minp
+#		self.channel		= ch
+#		self.reset_position()
+		
+	def reset_position(self):
+		initial_pos = self.min_pos + ((self.max_pos - self.min_pos) / 2)
+		return self.set_position(initial_pos)
+		
+	
+	def set_position( self, position ):
+		self.pos = position
+		if position < self.min_pos:
+			self.pos = self.min_pos
+		elif position > self.max_pos:
+			self.pos = self.max_pos
+		return super(Servo, self).setPWM(self, self.channel, 0, position)
+	
+	def step_fw( self, steps ):
+		self.pos += steps
+		return self.set_position(self.pos)
+	
+	def step_bck( self, steps ):
+		self.pos -= steps
+		return self.set_position(self.pos)
+		
+		
+		
+
