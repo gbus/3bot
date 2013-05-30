@@ -95,17 +95,20 @@ class Motor(object):
             sleep(self._T)
  
 if __name__ == "__main__":
-    GPIO.setmode(GPIO.BOARD)
-    m = Motor([18,22,24,26])
+#    GPIO.setmode(GPIO.BOARD)
+#    m = Motor([7,13,15,16])
+    GPIO.setmode(GPIO.BCM)
+    m = Motor([4,17,27,22])
     m.rpm = 5
     print "Pause in seconds: " + `m._T`
-    m.move_to(90)
-    sleep(1)
-    m.move_to(0)
-    sleep(1)
-    m.move_to(-90)
-    sleep(1)
-    m.move_to(-180)
-    sleep(1)
-    m.move_to(0)
+#    m.move_to(90)
+#    sleep(1)
+#    m.move_to(0)
+#    sleep(1)
+#    m.move_to(-90)
+#    sleep(1)
+#    m.move_to(-180)
+#    sleep(1)
+    m._move_cw(300)	# extend
+    m._move_acw(300)     # retract
     GPIO.cleanup()
