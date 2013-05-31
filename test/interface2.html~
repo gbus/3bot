@@ -61,9 +61,9 @@ function dosomething() {
 
 #viewport #lwheel {
     background: url('../static/img/robot.png') left center no-repeat;
-    margin: 25px 25px;
+    margin: -25px -25px;
     top: 90%;
-    left: 10px;
+    left: 90%;
     height: 50px;
     width: 50px;
     position: absolute;
