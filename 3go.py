@@ -48,7 +48,7 @@ nsteps = 50
 jointA = Motor([4,17,27,22])
 jointA.rpm = 2
 jointB = Motor([18,23,24,25])
-jointB.rpm = 2
+jointB.rpm = 10
 
 
 initmsg = "3Bot ready to go!"
