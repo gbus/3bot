@@ -8,6 +8,7 @@ render = web.template.render('templates/')
 
 urls = (
   '/', 'index',
+  '/interface2', 'interface2',
   '/servo/neutral/(.*)', 'Reset',
   '/servo/position/(.*)/(.*)', 'Position',
   '/servo/step/(.*)/(.*)', 'Step',
@@ -66,6 +67,9 @@ class index:
     def GET(self):
 		return render.index()
 
+class interface2:
+    def GET(self):
+		return render.interface2()
         
 if __name__ == "__main__": 
     app = web.application(urls, globals())

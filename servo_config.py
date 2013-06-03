@@ -17,7 +17,7 @@ channel_config = {
 2: {"minp": 300, "maxp": 400 },
 3: {"minp": 300, "maxp": 400 },
 4: {"minp": 180, "maxp": 500 },
-5: {"minp": 170, "maxp": 580 },
+5: {"minp": 180, "maxp": 520 },
 6: {"minp": 300, "maxp": 400 },
 7: {"minp": 300, "maxp": 400 },
 8: {"minp": 0, "maxp": 4095 },
