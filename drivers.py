@@ -20,11 +20,13 @@ class drive2:
 	__turnstep		= 10
 	__brakestep		= 20	# how many steps reduce the speed at each cycle
 	__brakedelay	= 0.2	# secs between brakestep changes
+	__movespeed		= 20 
+	__moveduration	= 2		# secs the servo keep spinning
 
-	def stepfw( self ):
+	def onemovefw( self ):
 		pass
 
-	def stepback( self ):
+	def onemoveback( self ):
 		pass
 
 	def turnleft( self ):
