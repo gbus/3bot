@@ -1,5 +1,6 @@
 from servo import Servo
 from servo_config import channel_config
+from time import sleep
 
 # SERVO CONFIG
 lw_channel		= 0
@@ -18,7 +19,7 @@ class drive2:
 	__speedinc		= 10
 	__turnstep		= 10
 	__brakestep		= 20	# how many steps reduce the speed at each cycle
-	__braketime		= 0.2	# secs between brakestep changes
+	__brakedelay	= 0.2	# secs between brakestep changes
 
 	def stepfw( self ):
 		pass
@@ -47,12 +48,27 @@ class drive2:
 		rposition	= rw.get_current_pos()
 		
 		# check direction
-		fw = False
-		if (lneutral > lposition):	# only checking left wheel
-			fw = True
+		ldir = -1; rdir = 1	# default to forward direction
+		if (lneutral < lposition or rneutral > rposition):	# moving backward
+			ldir = 1; rdir = -1
 
 		while ( lneutral != lposition and rneutral != rposition ):
-			pass
+
+			# Slow down left
+			if (lneutral != lposition):	# left is still moving
+				lposition = lposition - ( ldir * __brakestep )
+				if (abs(lposition-lneutral)<__brakestep):	# lposition too close to neutral
+					lposition = lneutral
+				lw.step_position(lposition)
+
+			# Slow down right
+			if (rneutral != rposition):	# right is still moving
+				rposition = rposition - ( rdir * __brakestep )
+				if (abs(rposition-rneutral)<__brakestep):	# rposition too close to neutral
+					rposition = rneutral
+				rw.step_position(rposition)
+
+			sleep(__brakedelay)
 			
 
 class switch:
