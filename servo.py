@@ -10,7 +10,7 @@ class Servo:
 	def __init__(self, ch=0):
 		self.min_pos	= channel_config[ch]['minp']
 		self.max_pos	= channel_config[ch]['maxp']
-		self.pos	= self.min_pos + ((self.max_pos - self.min_pos) / 2)
+		self.pos	= self.get_neutral_pos()
 		self.channel	= ch
 		self.p		= PWM()
 		self.p.setPWMFreq( self.freq )	
@@ -54,6 +54,14 @@ class Servo:
 	# Load servo config
 	def get_servo_conf( self ):
 		return channel_config[self.channel]
+
+	# Get current position
+	def get_current_pos( self ):
+		return self.pos
+
+	# Get neutral position
+	def get_neutral_pos( self ):
+		return self.min_pos + ((self.max_pos - self.min_pos) / 2)
 		
 		
 		
