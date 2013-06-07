@@ -19,15 +19,34 @@ class drive2:
 	__speedinc		= 10
 	__turnstep		= 10
 	__brakestep		= 20	# how many steps reduce the speed at each cycle
-	__brakedelay	= 0.2	# secs between brakestep changes
-	__movespeed		= 20 
-	__moveduration	= 2		# secs the servo keep spinning
+	__brakedelay		= 0.2	# secs between brakestep changes
 
-	def onemovefw( self ):
-		pass
+	def onemovefw( self, speed, duration ):
+		ldir = -1; rdir = 1
+		__onemove( speed, duration, ldir, rdir )
 
-	def onemoveback( self ):
-		pass
+	def onemoveback( self, speed, duration ):
+		ldir = 1; rdir = -1
+		__onemove( speed, duration, ldir, rdir )
+
+	def __onemove( self, speedinc, duration, ldir, rdir ):
+		num_steps	= 5
+		step_size	= abs(speedinc/num_steps)
+		# speedup
+		for s in range(0,speedinc,step_size):
+			lw.step_position(ldir*s)
+			rw.step_position(rdir*s)
+		# keep top speed for a given time
+		lw.step_position(ldir*speedinc)
+		rw.step_position(rdir*speedinc)
+		sleep(duration)
+		# slowdown
+		for s in range(speedinc,0,step_size):
+			lw.step_position(ldir*s)
+			rw.step_position(rdir*s)
+		# ensure servos are stopped
+		lw.reset_position()
+		rw.reset_position()
 
 	def turnleft( self ):
 		pass
