@@ -1,5 +1,4 @@
 from servo import Servo
-from servo_config import channel_config
 from time import sleep
 
 # SERVO CONFIG
@@ -11,56 +10,66 @@ head_pan_channel	= 5
 
 
 class drive2:
-	"""controls two servos driving a three wheels platform
-	:param none: nodesc
-	"""
-	lw	= Servo(lw_channel)	# Left wheel servo
-	rw	= Servo(rw_channel)	# Right wheel servo
-	__speedinc		= 10
-	__turnstep		= 10
-	__brakestep		= 20	# how many steps reduce the speed at each cycle
+"""controls two servos driving a three wheels platform
+:param lw_channel: PWM channel for left wheel
+:param rw_channel: PWM channel for right wheel
+"""
+
+	__brakestep		= 20	# how much reduce the speed at each cycle
 	__brakedelay		= 0.2	# secs between brakestep changes
 
-	def onemovefw( self, speed, duration ):
+	def __init__(self, lw_channel, rw_channel):
+		self.lw	= Servo(lw_channel)
+		self.rw	= Servo(rw_channel)
+
+	def onemovefw( self, speed_increment, duration ):
 		ldir = -1; rdir = 1
-		__onemove( speed, duration, ldir, rdir )
+		__onemove( speed_increment, duration, ldir, rdir )
 
-	def onemoveback( self, speed, duration ):
+	def onemoveback( self, speed_increment, duration ):
 		ldir = 1; rdir = -1
-		__onemove( speed, duration, ldir, rdir )
+		__onemove( speed_increment, duration, ldir, rdir )
 
-	def __onemove( self, speedinc, duration, ldir, rdir ):
-		num_steps	= 5
-		step_size	= abs(speedinc/num_steps)
+	def turnleft( self, speed_increment, duration ):
+		ldir = 1; rdir = 1
+		__onemove( speed_increment, duration, ldir, rdir )
+
+	def turnright( self, speed_increment, duration ):
+		ldir = -1; rdir = -1
+		__onemove( speed_increment, duration, ldir, rdir )
+
+	def __onemove( self, speed_increment, duration, ldir, rdir ):
+	"""smoothly increase and decrease the speed for left and right servos 
+	:param speed_increment: how much increase the speed
+	:param duration: how long keep the requested speed
+	:param ldir: left wheel direction (-1: fw, +1: back)
+	:param rdir: right wheel direction (+1: fw, -1: back)
+	"""
+		num_steps	= 5	# reach the requested speed gradual steps
+		step_size	= abs(speed_increment/num_steps)
 		# speedup
-		for s in range(0,speedinc,step_size):
+		for s in range(0,speed_increment,step_size):
 			lw.step_position(ldir*s)
 			rw.step_position(rdir*s)
 		# keep top speed for a given time
-		lw.step_position(ldir*speedinc)
-		rw.step_position(rdir*speedinc)
+		lw.step_position(ldir*speed_increment)
+		rw.step_position(rdir*speed_increment)
 		sleep(duration)
 		# slowdown
-		for s in range(speedinc,0,step_size):
+		for s in range(speed_increment,0,step_size):
 			lw.step_position(ldir*s)
 			rw.step_position(rdir*s)
 		# ensure servos are stopped
 		lw.reset_position()
 		rw.reset_position()
 
-	def turnleft( self ):
-		pass
+	def speedup( self, speed_increment ):
+		lret = lw.step_position(-speed_increment)
+		rret = rw.step_position(speed_increment)
 
-	def turnright( self ):
-		pass
-
-	def speedup( self ):
-		lret = lw.step_position(-__speedinc)
-		rret = rw.step_position(__speedinc)
-
-	def slowdown( self ):
-		lret = lw.step_position(__speedinc)
-		rret = rw.step_position(-__speedinc)
+	def slowdown( self, speed_increment ):
+		lret = lw.step_position(speed_increment)
+		rret = rw.step_position(-speed_increment)
 
 	def brake( self ):
 		lneutral	= lw.get_neutral_pos()
@@ -92,14 +101,43 @@ class drive2:
 			sleep(__brakedelay)
 			
 
-class switch:
-	"""buttons to switch things on/off
-	:param none: nodesc
-	"""
-	pass
 
 class backbone:
-	"""controls steper motors to extend/retract robot backbone
+	"""controls stepper motors to extend/retract a two joints robot backbone
+
+		           ^
+		            \
+		             \
+		              \
+		               \     <---------
+		               ^              ^
+	<----------           /               |
+	     ----->          /                |
+	   .---.          .---.             .---.
+	   |   |          |   |             |   |
+	   O  -'          O  -'             O  -'
+		                               
+	 .---------.    .-----------.    .-----------.
+	 Retracted      Extended UP      Extended FW
+
+	:param lowjoint_conf: list of 4 GPIO ports for the low stepper and 1 GPIO for the low switch sensor
+	:param hijoint_conf: list of 4 GPIO ports for the high stepper and 1 GPIO for the high switch sensor
+	"""
+
+
+	def __init__(self, lowjoint_conf, hijoint_conf):
+		self.lowsensor_port = lowjoint_conf.pop()
+		self.hisensor_port = hijoint_conf.pop()
+		# Create 2 stepper instances
+		self.lowjoint	= Motor(lowjoint_conf)
+		self.hijoint	= Motor(hijoint_conf)
+
+
+
+
+
+class switch:
+	"""buttons to switch things on/off
 	:param none: nodesc
 	"""
 	pass
