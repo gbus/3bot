@@ -100,6 +100,7 @@ while True:
       #lret = lw.step_position(-stepvalue)
       #rret = rw.step_position(stepvalue)
       wheels.onemovefw(100,1)
+      screen.addstr("Going fw\n" )
    elif event == curses.KEY_DOWN:
       #lret = lw.step_position(stepvalue)
       #rret = rw.step_position(-stepvalue)

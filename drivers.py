@@ -45,20 +45,22 @@ class Drive2:
 		:param ldir: left wheel direction (-1: fw, +1: back)
 		:param rdir: right wheel direction (+1: fw, -1: back)
 		"""
-		num_steps	= 5	# reach the requested speed gradual steps
+		num_steps	= 5	# progressively increase/decrease the speed
 		step_size	= abs(speed_increment/num_steps)
 		# speedup
-		for s in range(0,speed_increment,step_size):
+		for s in range(step_size,speed_increment,step_size):
 			self.lw.step_position(ldir*s)
 			self.rw.step_position(rdir*s)
+			sleep(0.5)
 		# keep top speed for a given time
 		self.lw.step_position(ldir*speed_increment)
 		self.rw.step_position(rdir*speed_increment)
 		sleep(duration)
 		# slowdown
-		for s in range(speed_increment,0,step_size):
+		for s in range(speed_increment,step_size,step_size):
 			self.lw.step_position(ldir*s)
 			self.rw.step_position(rdir*s)
+			sleep(0.5)
 		# ensure servos are stopped
 		self.lw.reset_position()
 		self.rw.reset_position()

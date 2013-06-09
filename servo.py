@@ -23,8 +23,7 @@ class Servo:
 #		self.reset_position()
 
 	def reset_position(self):
-		initial_pos = self.min_pos + ((self.max_pos - self.min_pos) / 2)
-		ret = self.set_position(initial_pos)
+		ret = self.set_position(self.get_neutral_pos())
 		if ret < 0:
 			return -1
 		return ret
