@@ -10,10 +10,10 @@ head_pan_channel	= 5
 
 
 class Drive2:
-"""controls two servos driving a three wheels platform
-:param lw_channel: PWM channel for left wheel
-:param rw_channel: PWM channel for right wheel
-"""
+	"""controls two servos driving a three wheels platform
+	:param lw_channel: PWM channel for left wheel
+	:param rw_channel: PWM channel for right wheel
+	"""
 
 	__brakestep		= 20	# how much reduce the speed at each cycle
 	__brakedelay		= 0.2	# secs between brakestep changes
@@ -39,12 +39,12 @@ class Drive2:
 		__onemove( speed_increment, duration, ldir, rdir )
 
 	def __onemove( self, speed_increment, duration, ldir, rdir ):
-	"""smoothly increase and decrease the speed for left and right servos 
-	:param speed_increment: how much increase the speed
-	:param duration: how long keep the requested speed
-	:param ldir: left wheel direction (-1: fw, +1: back)
-	:param rdir: right wheel direction (+1: fw, -1: back)
-	"""
+		"""smoothly increase and decrease the speed for left and right servos 
+		:param speed_increment: how much increase the speed
+		:param duration: how long keep the requested speed
+		:param ldir: left wheel direction (-1: fw, +1: back)
+		:param rdir: right wheel direction (+1: fw, -1: back)
+		"""
 		num_steps	= 5	# reach the requested speed gradual steps
 		step_size	= abs(speed_increment/num_steps)
 		# speedup
