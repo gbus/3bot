@@ -99,12 +99,12 @@ while True:
    elif event == curses.KEY_UP: 
       #lret = lw.step_position(-stepvalue)
       #rret = rw.step_position(stepvalue)
-      wheels.onemovefw(200,1)
+      wheels.onemovefw(50,1)
       screen.addstr("Going fw\n" )
    elif event == curses.KEY_DOWN:
       #lret = lw.step_position(stepvalue)
       #rret = rw.step_position(-stepvalue)
-      wheels.onemoveback(200,1)
+      wheels.onemoveback(50,1)
    elif event == curses.KEY_LEFT:
       #lret = lw.step_position(stepvalue)
       #rret = rw.step_position(stepvalue)
