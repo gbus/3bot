@@ -49,33 +49,33 @@ class Drive2:
 		step_size	= abs(speed_increment/num_steps)
 		# speedup
 		for s in range(0,speed_increment,step_size):
-			lw.step_position(ldir*s)
-			rw.step_position(rdir*s)
+			self.lw.step_position(ldir*s)
+			self.rw.step_position(rdir*s)
 		# keep top speed for a given time
-		lw.step_position(ldir*speed_increment)
-		rw.step_position(rdir*speed_increment)
+		self.lw.step_position(ldir*speed_increment)
+		self.rw.step_position(rdir*speed_increment)
 		sleep(duration)
 		# slowdown
 		for s in range(speed_increment,0,step_size):
-			lw.step_position(ldir*s)
-			rw.step_position(rdir*s)
+			self.lw.step_position(ldir*s)
+			self.rw.step_position(rdir*s)
 		# ensure servos are stopped
-		lw.reset_position()
-		rw.reset_position()
+		self.lw.reset_position()
+		self.rw.reset_position()
 
 	def speedup( self, speed_increment ):
-		lret = lw.step_position(-speed_increment)
-		rret = rw.step_position(speed_increment)
+		lret = self.lw.step_position(-speed_increment)
+		rret = self.rw.step_position(speed_increment)
 
 	def slowdown( self, speed_increment ):
-		lret = lw.step_position(speed_increment)
-		rret = rw.step_position(-speed_increment)
+		lret = self.lw.step_position(speed_increment)
+		rret = self.rw.step_position(-speed_increment)
 
 	def brake( self ):
-		lneutral	= lw.get_neutral_pos()
-		lposition	= lw.get_current_pos()
-		rneutral	= rw.get_neutral_pos()
-		rposition	= rw.get_current_pos()
+		lneutral	= self.lw.get_neutral_pos()
+		lposition	= self.lw.get_current_pos()
+		rneutral	= self.rw.get_neutral_pos()
+		rposition	= self.rw.get_current_pos()
 		
 		# check direction
 		ldir = -1; rdir = 1	# default to forward direction
@@ -89,14 +89,14 @@ class Drive2:
 				lposition = lposition - ( ldir * __brakestep )
 				if (abs(lposition-lneutral)<__brakestep):	# lposition too close to neutral
 					lposition = lneutral
-				lw.step_position(lposition)
+				self.lw.step_position(lposition)
 
 			# Slow down right
 			if (rneutral != rposition):	# right is still moving
 				rposition = rposition - ( rdir * self.__brakestep )
 				if (abs(rposition-rneutral)<self.__brakestep):	# rposition too close to neutral
 					rposition = rneutral
-				rw.step_position(rposition)
+				self.rw.step_position(rposition)
 
 			sleep(self.__brakedelay)
 			
