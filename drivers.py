@@ -60,7 +60,7 @@ class Drive2:
 		for s in range(speed_increment,step_size,-step_size):
 			self.lw.step_position(ldir*s)
 			self.rw.step_position(rdir*s)
-			sleep(0.5)
+			sleep(2)
 		# ensure servos are stopped
 		self.lw.reset_position()
 		self.rw.reset_position()
