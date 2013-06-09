@@ -2,7 +2,7 @@
 
 import curses
 #from espeak import espeak
-from drivers import drive2
+from drivers import Drive2
 from servo import Servo
 from servo_config import channel_config
 import RPi.GPIO as GPIO
@@ -20,7 +20,7 @@ li_gpio		= 29
 # INIT VALUES
 #lw	= Servo(lw_channel)	# Left wheel servo
 #rw	= Servo(rw_channel)	# Right wheel servo
-wheels	= drive2(lw_channel, rw_channel)
+wheels	= Drive2(lw_channel, rw_channel)
 x	= Servo(x_channel)	# Head Tilt
 y	= Servo(y_channel)	# Head Pan
 leds	= False			# LEDs
