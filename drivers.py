@@ -24,19 +24,19 @@ class Drive2:
 
 	def onemovefw( self, speed_increment, duration ):
 		ldir = -1; rdir = 1
-		__onemove( speed_increment, duration, ldir, rdir )
+		self.__onemove( speed_increment, duration, ldir, rdir )
 
 	def onemoveback( self, speed_increment, duration ):
 		ldir = 1; rdir = -1
-		__onemove( speed_increment, duration, ldir, rdir )
+		self.__onemove( speed_increment, duration, ldir, rdir )
 
 	def turnleft( self, speed_increment, duration ):
 		ldir = 1; rdir = 1
-		__onemove( speed_increment, duration, ldir, rdir )
+		self.__onemove( speed_increment, duration, ldir, rdir )
 
 	def turnright( self, speed_increment, duration ):
 		ldir = -1; rdir = -1
-		__onemove( speed_increment, duration, ldir, rdir )
+		self.__onemove( speed_increment, duration, ldir, rdir )
 
 	def __onemove( self, speed_increment, duration, ldir, rdir ):
 		"""smoothly increase and decrease the speed for left and right servos 
@@ -93,12 +93,12 @@ class Drive2:
 
 			# Slow down right
 			if (rneutral != rposition):	# right is still moving
-				rposition = rposition - ( rdir * __brakestep )
-				if (abs(rposition-rneutral)<__brakestep):	# rposition too close to neutral
+				rposition = rposition - ( rdir * self.__brakestep )
+				if (abs(rposition-rneutral)<self.__brakestep):	# rposition too close to neutral
 					rposition = rneutral
 				rw.step_position(rposition)
 
-			sleep(__brakedelay)
+			sleep(self.__brakedelay)
 			
 
 
