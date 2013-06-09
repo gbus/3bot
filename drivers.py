@@ -9,7 +9,7 @@ head_pan_channel	= 5
 
 
 
-class drive2:
+class Drive2:
 """controls two servos driving a three wheels platform
 :param lw_channel: PWM channel for left wheel
 :param rw_channel: PWM channel for right wheel
@@ -102,7 +102,7 @@ class drive2:
 			
 
 
-class backbone:
+class Backbone:
 	"""controls stepper motors to extend/retract a two joints robot backbone
 
 		           ^
@@ -136,7 +136,7 @@ class backbone:
 
 
 
-class switch:
+class Switch:
 	"""buttons to switch things on/off
 	:param none: nodesc
 	"""

@@ -2,6 +2,7 @@
 
 import curses
 #from espeak import espeak
+from drivers import drive2
 from servo import Servo
 from servo_config import channel_config
 import RPi.GPIO as GPIO
@@ -17,8 +18,9 @@ le_gpio		= 28
 li_gpio		= 29
 
 # INIT VALUES
-lw	= Servo(lw_channel)	# Left wheel servo
-rw	= Servo(rw_channel)	# Right wheel servo
+#lw	= Servo(lw_channel)	# Left wheel servo
+#rw	= Servo(rw_channel)	# Right wheel servo
+wheels	= drive2(lw_channel, rw_channel)
 x	= Servo(x_channel)	# Head Tilt
 y	= Servo(y_channel)	# Head Pan
 leds	= False			# LEDs
@@ -27,8 +29,8 @@ light	= False			# Light
 
 xret = x.reset_position()
 yret = y.reset_position()
-lret = lw.reset_position()
-rret = rw.reset_position()
+#lret = lw.reset_position()
+#rret = rw.reset_position()
 
 # CURSES INIT
 screen = curses.initscr()
@@ -95,38 +97,33 @@ while True:
           GPIO.output(li_gpio, GPIO.HIGH)
           light = True
    elif event == curses.KEY_UP: 
-      lret = lw.step_position(-stepvalue)
-      rret = rw.step_position(stepvalue)  
+      #lret = lw.step_position(-stepvalue)
+      #rret = rw.step_position(stepvalue)
+      wheels.onemovefw(20,1)
    elif event == curses.KEY_DOWN:
-      lret = lw.step_position(stepvalue)
-      rret = rw.step_position(-stepvalue)
+      #lret = lw.step_position(stepvalue)
+      #rret = rw.step_position(-stepvalue)
+      wheels.onemoveback(20,1)
    elif event == curses.KEY_LEFT:
-      lret = lw.step_position(stepvalue)
-      rret = rw.step_position(stepvalue)
+      #lret = lw.step_position(stepvalue)
+      #rret = rw.step_position(stepvalue)
+      wheels.turnleft(20,1)
    elif event == curses.KEY_RIGHT:
-      lret = lw.step_position(-stepvalue)
-      rret = rw.step_position(-stepvalue)
+      #lret = lw.step_position(-stepvalue)
+      #rret = rw.step_position(-stepvalue)
+      wheels.turnright(20,1)
    elif event == ord(' '):   
-      lret = lw.reset_position()
-      rret = rw.reset_position() 
-      xret = x.reset_position()
-      yret = y.reset_position()
+      #lret = lw.reset_position()
+      #rret = rw.reset_position() 
+      #xret = x.reset_position()
+      #yret = y.reset_position()
+      wheels.brake(20,1)
 
    screen.clear()      
-   screen.addstr("Wheel: l: %d; r: %d\n" % (lret, rret) )
-   screen.addstr("Head : x: %d; y: %d\n" % (xret, yret) )
-#   screen.addstr("Light : %s\n" % (liret) )
+#   screen.addstr("Wheel: l: %d; r: %d\n" % (lret, rret) )
+#   screen.addstr("Head : x: %d; y: %d\n" % (xret, yret) )
    
-   if ( lret == channel_config[lw_channel]['maxp'] 
-	and 
-	rret == channel_config[rw_channel]['maxp'] ) :
-      if talk == True:
-         #espeak.synth(spinningmsg)
-         talk = False
-   if  ( lret != channel_config[lw_channel]['maxp'] 
-	or 
-	rret != channel_config[rw_channel]['maxp'] ) :
-       talk = True
+
 
 
 
