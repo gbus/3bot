@@ -99,30 +99,31 @@ while True:
    elif event == curses.KEY_UP: 
       #lret = lw.step_position(-stepvalue)
       #rret = rw.step_position(stepvalue)
-      wheels.onemovefw(20,1)
+      wheels.onemovefw(100,1)
    elif event == curses.KEY_DOWN:
       #lret = lw.step_position(stepvalue)
       #rret = rw.step_position(-stepvalue)
-      wheels.onemoveback(20,1)
+      wheels.onemoveback(100,1)
    elif event == curses.KEY_LEFT:
       #lret = lw.step_position(stepvalue)
       #rret = rw.step_position(stepvalue)
-      wheels.turnleft(20,1)
+      wheels.turnleft(100,1)
    elif event == curses.KEY_RIGHT:
       #lret = lw.step_position(-stepvalue)
       #rret = rw.step_position(-stepvalue)
-      wheels.turnright(20,1)
+      wheels.turnright(100,1)
    elif event == ord(' '):   
       #lret = lw.reset_position()
       #rret = rw.reset_position() 
       #xret = x.reset_position()
       #yret = y.reset_position()
-      wheels.brake(20,1)
+      wheels.brake()
 
    screen.clear()      
 #   screen.addstr("Wheel: l: %d; r: %d\n" % (lret, rret) )
 #   screen.addstr("Head : x: %d; y: %d\n" % (xret, yret) )
    
+   screen.addstr("Button pushed\n" )
 
 
 
