@@ -2,7 +2,7 @@
 
 import curses
 #from espeak import espeak
-from drivers-3bot import Drive2
+from 3bot_drivers import Drive2
 from servo import Servo
 from servo_config import channel_config
 import RPi.GPIO as GPIO
