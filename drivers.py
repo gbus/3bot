@@ -1,6 +1,8 @@
 from servo import Servo
 from time import sleep
 
+from servo_config import channel_config	# only for testing purposes
+
 # SERVO CONFIG
 lw_channel		= 0
 rw_channel		= 1
@@ -143,3 +145,16 @@ class Switch:
 	:param none: nodesc
 	"""
 	pass
+
+
+ 
+if __name__ == "__main__":
+	lw_channel	= 0
+	rw_channel	= 1
+	wheels	= Drive2(lw_channel, rw_channel)
+
+	print "Going forward..."
+	wheels.onemovefw(20,1)
+
+	print "Going backward..."
+	wheels.onemoveback(20,1)
