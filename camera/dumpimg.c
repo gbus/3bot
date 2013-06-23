@@ -156,7 +156,7 @@ static void default_status(RASPISTILL_STATE *state)
 	// *** PR : modif for demo purpose : smaller image
    state->timeout = 1000; // 5s delay before take image
    state->width = 320;//2592;
-   state->height = 200; //1944;
+   state->height = 240; //1944;
    state->quality = 85;
    state->wantRAW = 0;
    state->filename = NULL;
@@ -175,7 +175,6 @@ static void default_status(RASPISTILL_STATE *state)
    state->encoding = MMAL_ENCODING_JPEG;
    state->numExifTags = 0;
    state->timelapse = 0;
-
    // Setup preview window defaults
    raspipreview_set_defaults(&state->preview_parameters);
 
@@ -238,12 +237,12 @@ static void encoder_buffer_callback(MMAL_PORT_T *port, MMAL_BUFFER_HEADER_T *buf
 		IplImage *img = cvDecodeImage(buf, CV_LOAD_IMAGE_COLOR);
 		
 		// we can save it !
-		cvSaveImage("foobar.bmp", img,0);
+		cvSaveImage("camimage.bmp", img,0);
 		
 		// or display it 
-		cvNamedWindow("camcvWin", CV_WINDOW_AUTOSIZE); 
-  		cvShowImage("camcvWin", img );
-		cvWaitKey(0);
+		// cvNamedWindow("camcvWin", CV_WINDOW_AUTOSIZE); 
+  		// cvShowImage("camcvWin", img );
+		// cvWaitKey(0);
 
   		//cvReleaseImage(&img );
   
@@ -666,6 +665,9 @@ static void signal_handler(int signal_number)
    exit(255);
 }
 
+
+
+
 /**
  * main
  */
@@ -688,6 +690,12 @@ int main(int argc, const char **argv)
    signal(SIGINT, signal_handler);
 
    default_status(&state);
+
+
+   // GB: Change default camera_parameters here
+   RASPICAM_CAMERA_PARAMETERS *custom_params = &state.camera_parameters;
+   custom_params->vflip = 1;
+   state.camera_parameters = *custom_params;
 
    if (!create_camera_component(&state))
    {
