@@ -697,6 +697,9 @@ int main(int argc, const char **argv)
    custom_params->vflip = 1;
    state.camera_parameters = *custom_params;
 
+   // Alternative to test:
+   //state.camera_parameters.vflip = 1;
+
    if (!create_camera_component(&state))
    {
       vcos_log_error("%s: Failed to create camera component", __func__);
