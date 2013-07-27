@@ -5,12 +5,12 @@ import cv;
 storage = cv.CreateMemStorage()
 haar = cv.Load('/usr/share/opencv/haarcascades/haarcascade_frontalface_default.xml')
 
-filename = "capture.jpg"
+filename = "./capture.jpg"
 
 while (True):
   print "capturing image"
   start = time.time()
-  os.system("/opt/vc/bin/raspicam -w 800 -h 600 -t 0 -o " + filename)
+  os.system("/usr/bin/raspistill -w 800 -h 600 -vf -t 0 -o " + filename)
   end = time.time()
   print "captured image in " + str(end-start) + " seconds"
 
