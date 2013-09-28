@@ -12,9 +12,16 @@
  {
          PWM* pwm = new PWM(0x40,true);
          pwm->setPWMFreq(60);
-         pwm->setPWM(0,0,150);
+         pwm->setPWM(0,0,450);
          sleep(1);
-         pwm->setPWM(0,0,600);
+         pwm->setPWM(0,0,350);
          sleep(1); 
+         pwm->setPWM(0,0,400);
+         sleep(1); 
+         pwm->setPWM(1,0,450);
+         sleep(1);
+         pwm->setPWM(1,0,350);
+         sleep(1); 
+         pwm->setPWM(1,0,400);
          exit(1);
  }
