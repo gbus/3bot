@@ -8,7 +8,9 @@
  #include <wiringPi.h>  
  #define TRIGGER_PIN 9 
  #define ECHO_PIN  11 
- #define TIMEOUT 999 /* any value other than LOW or HIGH */  
+ #define TIMEOUT 999 /* any value other than LOW or HIGH */ 
+ 
+  
  int waitforpin(int pin, int level, int timeout)  
  {  
    struct timeval now, start;  
@@ -26,7 +28,9 @@
     if (digitalRead(pin) == level) done = 1;  
    }  
    return micros;  
- }  
+ }
+ 
+   
  int main (int argc, char *argv[])  
  {  
    int pulsewidth;  
