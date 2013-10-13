@@ -52,18 +52,26 @@ int sonarread ()
 		pulsewidth = waitforpin(ECHO_PIN, LOW, 60000L); /* 60 ms timeout */  
 		if (digitalRead(ECHO_PIN) == LOW)  {  
 			/* valid reading code */  
-/*			printf("echo at %d micros\n", pulsewidth);*/
+			/*printf("echo at %d micros\n", pulsewidth);*/
 			return pulsewidth;
 		} else {  
 			/* no object detected code */  
-/*			printf("echo timed out\n");  */
+			/*printf("echo timed out\n");  */
 			return -1;
 		}  
 	} else {  
 		/* sensor not firing code */  
-/*		printf("sensor didn't fire\n");*/
+		/*printf("sensor didn't fire\n");*/
 		return -2;
 	}
+}
+
+/*
+* Converts the pulsewidth (us) in meters
+* divide by speed of sound (343.2 m/s)
+*/
+float pwtometers(int pulsewidth) {
+	return pulsewidth*1000*1000/343.2;
 }
 
 int main (int argc, char *argv[])  
@@ -81,7 +89,10 @@ int main (int argc, char *argv[])
 	for (i = 0; i < 10; i++)  
 	{  
 		pulsewidth = sonarread();
-		printf("echo at %d micros\n", pulsewidth);
+		if (pulsewidth > 0) {
+			printf("Distance : %f mt\n", pwtometers(pulsewidth));
+		}
+		
 		
 	}  
 }  
