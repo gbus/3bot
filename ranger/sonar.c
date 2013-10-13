@@ -70,7 +70,8 @@ int sonarread ()
 * Converts the pulsewidth (us) in meters
 * divide by speed of sound (343.2 m/s)
 */
-float pwtometers(int pulsewidth) {
+float pwtometers(int pulsewidth)
+{
 	return pulsewidth*1000*1000/343.2;
 }
 
@@ -91,6 +92,8 @@ int main (int argc, char *argv[])
 		pulsewidth = sonarread();
 		if (pulsewidth > 0) {
 			printf("Distance : %f mt\n", pwtometers(pulsewidth));
+		} else {
+			printf("Error %d\n", pulsewidth);
 		}
 		
 		
