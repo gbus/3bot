@@ -73,8 +73,8 @@ int sonarread ()
 */
 double pwtometers(int pulsewidth)
 {
-	double seconds = pulsewidth/1000/1000/2;
-	return seconds*343.2;
+	double pw = pulsewidth/1000/2*343.2;
+	return seconds/1000;
 }
 
 int main (int argc, char *argv[])  
