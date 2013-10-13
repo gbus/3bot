@@ -77,8 +77,8 @@ int main (int argc, char *argv[])
 	pinMode(TRIGGER_PIN, OUTPUT);  
 	pinMode(ECHO_PIN, INPUT);
 	  
-	
-	for (int i = 0; i < 10; i++)  
+	int i;
+	for (i = 0; i < 10; i++)  
 	{  
 		pulsewidth = sonarread();
 		printf("echo at %d micros\n", pulsewidth);
