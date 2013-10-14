@@ -18,6 +18,6 @@ protected:
 public:
         Sonar(int trigger_pin,int echo_pin);
         int sonarread ();
-        double getdistance();
+        double getdistance(int pulsewidth);
 };
 #endif
