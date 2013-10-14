@@ -10,8 +10,8 @@
 class Sonar
 {
 private:
-	int trigpin
-	int echopin
+	int trigpin;
+	int echopin;
 	int pulsewidth;
 protected:
         int waitforpin(int pin, int level, int timeout);

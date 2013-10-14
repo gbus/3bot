@@ -17,8 +17,6 @@ Sonar::Sonar(int trigger_pin, int echo_pin)
 		pinMode(trigpin, OUTPUT);  
 		pinMode(echopin, INPUT);
 	}
-
-	
 }
 
 
@@ -50,29 +48,25 @@ int waitforpin(int pin, int level, int timeout)
 
 int sonarread ()
 {
-	int pulsewidth;
 	/* trigger reading */  
-	digitalWrite(TRIGGER_PIN, HIGH);  
-	waitforpin(ECHO_PIN, TIMEOUT, 10); /* wait 10 microseconds */  
-	digitalWrite(TRIGGER_PIN, LOW);  
+	digitalWrite(trigpin, HIGH);  
+	waitforpin(echopin, TIMEOUT, 10); /* wait 10 microseconds */  
+	digitalWrite(trigpin, LOW);  
 	/* wait for reading to start */  
-	waitforpin(ECHO_PIN, HIGH, 5000); /* 5 ms timeout */
+	waitforpin(echopin, HIGH, 5000); /* 5 ms timeout */
 	
-	if (digitalRead(ECHO_PIN) == HIGH)  
+	if (digitalRead(echopin) == HIGH)  
 	{  
-		pulsewidth = waitforpin(ECHO_PIN, LOW, 60000L); /* 60 ms timeout */  
-		if (digitalRead(ECHO_PIN) == LOW)  {  
-			/* valid reading code */  
-			/*printf("echo at %d micros\n", pulsewidth);*/
-			return pulsewidth;
+		pulsewidth = this.waitforpin(echopin, LOW, 60000L); /* 60 ms timeout */  
+		if (digitalRead(echopin) == LOW)  {  
+			/* valid reading */
+			return 0;
 		} else {  
-			/* no object detected code */  
-			/*printf("echo timed out\n");  */
+			/* no object detected (timeout) */
 			return -1;
 		}  
 	} else {  
-		/* sensor not firing code */  
-		/*printf("sensor didn't fire\n");*/
+		/* sensor not firing */
 		return -2;
 	}
 }
@@ -83,7 +77,7 @@ int sonarread ()
 * pulse duration is divided by two and converted in seconds
 * speed of sound: 343.2 m/s
 */
-double pwtometers(int pulsewidth)
+double getdistance()
 {
 	double mus = pulsewidth/2*343.2;
 	return mus/1000/1000;

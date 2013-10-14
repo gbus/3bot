@@ -20,7 +20,7 @@ Sonar::Sonar(int trigger_pin, int echo_pin)
 }
 
 
-int waitforpin(int pin, int level, int timeout)
+int Sonar::waitforpin(int pin, int level, int timeout)
 {
  	struct timeval now, start;  
  	int done;  
@@ -46,7 +46,7 @@ int waitforpin(int pin, int level, int timeout)
 }
 
 
-int sonarread ()
+int Sonar::sonarread ()
 {
 	/* trigger reading */  
 	digitalWrite(trigpin, HIGH);  
@@ -77,7 +77,7 @@ int sonarread ()
 * pulse duration is divided by two and converted in seconds
 * speed of sound: 343.2 m/s
 */
-double getdistance()
+double Sonar::getdistance()
 {
 	double mus = pulsewidth/2*343.2;
 	return mus/1000/1000;

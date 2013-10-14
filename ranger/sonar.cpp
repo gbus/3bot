@@ -19,9 +19,9 @@ int main (int argc, char *argv[])
 
 	for (i = 0; i < 10; i++)  
 	{
-		resp = son.sonarread();
+		resp = son->sonarread();
 		if ( resp == 0) {
-			printf("Distance : %lf mt\n", son.getdistance());
+			printf("Distance : %lf mt\n", son->getdistance());
 		} else {
 			printf("Error %d\n", resp);
 		}		
