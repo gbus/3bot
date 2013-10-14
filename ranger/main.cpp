@@ -9,7 +9,7 @@
 #include "sonarlib.h"
 
 
-int main (int argc, char *argv[])  
+int main (void)  
 {  
 	int trig = 9;
 	int echo = 11;
