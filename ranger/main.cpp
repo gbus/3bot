@@ -1,12 +1,12 @@
-#include <stdio.h>  
-#include <stdlib.h>  
-#include <unistd.h>  
-#include <signal.h>  
-#include <string.h>  
-#include <errno.h>  
-#include <sys/time.h>  
-#include <wiringPi.h>  
 #include "sonarlib.h"
+ #include <wiringPi.h>
+ #include <wiringPiI2C.h>
+ #include <iostream>
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <unistd.h>
+ #include <stdint.h>
+ #include <errno.h>
 
 
 int main (void)  

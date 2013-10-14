@@ -5,6 +5,8 @@
 #include <wiringPi.h> 
 #include "sonarlib.h" 
 
+using namespace std;
+
 Sonar::Sonar(int trigger_pin, int echo_pin)
 {
 	trigpin = trigger_pin;
@@ -57,7 +59,7 @@ int Sonar::sonarread ()
 	
 	if (digitalRead(echopin) == HIGH)  
 	{  
-		pulsewidth = this.waitforpin(echopin, LOW, 60000L); /* 60 ms timeout */  
+		pulsewidth = waitforpin(echopin, LOW, 60000L); /* 60 ms timeout */  
 		if (digitalRead(echopin) == LOW)  {  
 			/* valid reading */
 			return 0;

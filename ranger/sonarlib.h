@@ -6,7 +6,6 @@
 #define TIMEOUT 999 /* any value other than LOW or HIGH */ 
 
 
-
 class Sonar
 {
 private:
