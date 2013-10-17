@@ -19,34 +19,7 @@
 #include <wiringPiI2C.h>
 #include <libplayercore/playercore.h>
 
-////////////////////////////////////////////////////////////////////////////////
-// The class for the driver
-class 3botDriver : public ThreadedDriver
-{
-  public:
-    
-    // Constructor
-    3botDriver(ConfigFile* cf, int section);
 
-    // This method will be invoked on each incoming message
-    virtual int ProcessMessage(QueuePointer &resp_queue, 
-                               player_msghdr * hdr,
-                               void * data);
-
-  private:
-
-    // Main function for device thread.
-    virtual void Main();
-    virtual int MainSetup();
-    virtual void MainQuit();
-
-    int leftwheel_i2a_ch
-    int rightwheel_i2a_ch
-    int leftwheelmin
-    int leftwheelmax
-    int rightwheelmin
-    int rightwheelmax
-};
 
 // A factory creation function, declared outside of the class so that it
 // can be invoked without any object context (alternatively, you can
@@ -65,8 +38,11 @@ Driver*
 // driver can support and how to create a driver instance.
 void 3botDriver_Register(DriverTable* table)
 {
-  table->AddDriver("exampledriver", 3botDriver_Init);
+  table->AddDriver("3botdriver", 3botDriver_Init);
 }
+
+
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // Constructor.  Retrieve options from the configuration file and do any
@@ -75,6 +51,16 @@ void 3botDriver_Register(DriverTable* table)
     : ThreadedDriver(cf, section, false, PLAYER_MSGQUEUE_DEFAULT_MAXLEN, 
              PLAYER_POSITION2D_CODE)
 {
+
+  // 
+/*
+  if (cf->ReadDeviceAddr(&laserID, section, "requires", PLAYER_LASER_CODE, -1, NULL) != 0)
+  {
+    PLAYER_ERROR("Could not find laser interface!");
+    SetError(-1);
+    return;
+  } */
+
   // Read an option from the configuration file
   this->leftwheel_i2a_ch = cf->ReadInt(section, "leftwheel_i2a_ch", 0);
   this->rightwheel_i2a_ch = cf->ReadInt(section, "rightwheel_i2a_ch", 1);
@@ -85,6 +71,9 @@ void 3botDriver_Register(DriverTable* table)
 
   return;
 }
+
+
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // Set up the device.  Return 0 if things go well, and -1 otherwise.
