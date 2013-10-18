@@ -127,7 +127,23 @@ void 3botDriver::Main()
 
     // Process incoming messages.  3botDriver::ProcessMessage() is
     // called on each message.
-    ProcessMessages();
+    // Is it a new motor command?
+    if(Message::MatchMessage(hdr, PLAYER_MSGTYPE_CMD, 
+                           PLAYER_POSITION2D_CMD_VEL, 
+                           this->3botpos_id))
+    {
+    	// convert from Player to Stage format
+	// GB: don't know if needed
+    	// player_position2d_cmd_vel_t* pcmd = (player_position2d_cmd_vel_t*)data;
+	// mod->SetSpeed( pcmd->vel.px, pcmd->vel.py, pcmd->vel.pa );
+    	//stg_position_cmd_t scmd; 
+    	//memset( &scmd, 0, sizeof(scmd));
+
+    	mod->SetSpeed( data->vel.px, data->vel.py, data->vel.pa );
+
+    	return 0;
+    }
+
 
     // Interact with the device, and push out the resulting data, using
     // Driver::Publish()

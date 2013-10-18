@@ -28,12 +28,13 @@ class 3botDriver : public ThreadedDriver
     virtual void MainQuit();
 
     //player_devaddr_t laserID;
-    int leftwheel_i2a_ch
-    int rightwheel_i2a_ch
-    int leftwheelmin
-    int leftwheelmax
-    int rightwheelmin
-    int rightwheelmax
+    int leftwheel_i2a_ch;
+    int rightwheel_i2a_ch;
+    int leftwheelmin;
+    int leftwheelmax;
+    int rightwheelmin;
+    int rightwheelmax;
+    player_devaddr_t 3botpos_id;
 };
 
 
