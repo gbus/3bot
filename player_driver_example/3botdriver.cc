@@ -113,6 +113,10 @@ int 3botDriver::ProcessMessage(QueuePointer & resp_queue,
   return(0);
 }
 
+void 3botDriver::drive2_cmd(player_position2d_cmd_vel_t * cmd)
+{
+	// TODO: driver for the differential servo motors
+}
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -130,7 +134,7 @@ void 3botDriver::Main()
     // Is it a new motor command?
     if(Message::MatchMessage(hdr, PLAYER_MSGTYPE_CMD, 
                            PLAYER_POSITION2D_CMD_VEL, 
-                           this->3botpos_id))
+                           this->position_addr))
     {
     	// convert from Player to Stage format
 	// GB: don't know if needed
@@ -138,8 +142,10 @@ void 3botDriver::Main()
 	// mod->SetSpeed( pcmd->vel.px, pcmd->vel.py, pcmd->vel.pa );
     	//stg_position_cmd_t scmd; 
     	//memset( &scmd, 0, sizeof(scmd));
-
-    	mod->SetSpeed( data->vel.px, data->vel.py, data->vel.pa );
+	assert(hdr->size == sizeof(player_position2d_cmd_vel_t));
+	this->drive2_cmd((player_position2d_cmd_vel_t*)data);
+	
+    	//mod->SetSpeed( data->vel.px, data->vel.py, data->vel.pa );
 
     	return 0;
     }

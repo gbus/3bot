@@ -19,6 +19,8 @@ class 3botDriver : public ThreadedDriver
     virtual int ProcessMessage(QueuePointer &resp_queue, 
                                player_msghdr * hdr,
                                void * data);
+                               
+    void drive2_cmd(player_position2d_cmd_vel_t * cmd);
 
   private:
 
@@ -34,7 +36,7 @@ class 3botDriver : public ThreadedDriver
     int leftwheelmax;
     int rightwheelmin;
     int rightwheelmax;
-    player_devaddr_t 3botpos_id;
+    player_devaddr_t position_addr;
 };
 
 
