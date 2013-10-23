@@ -24,7 +24,8 @@ int Servo::set_position( int position )
 	} else if ( position > max_pos ) {
 		pos = max_pos;
 	}
-	return setPWM(channel, 0, pos);
+	setPWM(channel, 0, pos);
+	return pos;
 }
 	
 // Set channel to use and load its settings

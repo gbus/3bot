@@ -18,7 +18,7 @@ public:
 	Servo(bool debug, int ch, int min, int max);
 	int reset_position();
 	int set_position( int );
-	void set_channel( int, int, int );
+	void set_servo( int, int, int );
 	int step_position( int );
 	int get_current_pos();	
 };

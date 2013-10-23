@@ -15,6 +15,8 @@
 #define MAX	500
 #define DEBUG	false
 
+using namespace std;
+
 int main(void)
 {
 	Servo s(DEBUG, CHANNEL, MIN, MAX);
