@@ -1,4 +1,4 @@
-#include "pwmlib.h"
+#include "servolib.h"
 
 
 Servo::Servo(bool debug, int ch, int min, int max) : PWM(debug)
@@ -29,7 +29,7 @@ int Servo::set_position( int position )
 }
 	
 # Set channel to use and load its settings
-void Servo::set_channel( int ch, int min, int max )
+void Servo::set_servo( int ch, int min, int max )
 {
 	channel = ch;
 	min_pos	= min;

@@ -16,7 +16,7 @@ Servo::reset_position()
 }
 
 
-# Set a given value (position) for the servo 
+// Set a given value (position) for the servo 
 int Servo::set_position( int position )
 {
 	pos = position;
@@ -28,7 +28,7 @@ int Servo::set_position( int position )
 	return setPWM(channel, 0, pos);
 }
 	
-# Set channel to use and load its settings
+// Set channel to use and load its settings
 void Servo::set_servo( int ch, int min, int max )
 {
 	channel = ch;
@@ -37,7 +37,7 @@ void Servo::set_servo( int ch, int min, int max )
 }
 
 
-# Increase number of steps the current position
+// Increase number of steps the current position
 int Servo::step_position( int steps )
 {
 	pos += steps;
@@ -45,13 +45,13 @@ int Servo::step_position( int steps )
 }
 
 
-# Get current position
+// Get current position
 int Servo::get_current_pos()
 {
 	return pos;
 }
 
-# Get neutral position
+// Get neutral position
 int Servo::get_neutral_pos()
 {
 	return min_pos + ((max_pos - min_pos) / 2);
