@@ -10,7 +10,7 @@
 
  int main(void)
  {
-         PWM* pwm = new PWM(0x40,true);
+         PWM* pwm = new PWM(true);
          pwm->setPWMFreq(60);
          pwm->setPWM(0,0,450);
          sleep(1);
