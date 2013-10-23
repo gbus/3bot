@@ -14,7 +14,7 @@ private:
 protected:
 	int get_neutral_pos();	
 public:
-	Servo(bool debug, int ch, int min, int max): PWM(debug);
+	Servo(bool debug, int ch, int min, int max);
 	int reset_position();
 	int set_position( int );
 	void set_channel( int, int, int );
