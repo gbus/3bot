@@ -116,6 +116,10 @@ int 3botDriver::ProcessMessage(QueuePointer & resp_queue,
 void 3botDriver::drive2_cmd(player_position2d_cmd_vel_t * cmd)
 {
 	// TODO: driver for the differential servo motors
+	/*
+	dx = (left_vel + right_vel) / 2.0;
+	dyaw = (right_vel - left_vel) / AXLE_LENGTH;
+	*/
 }
 
 

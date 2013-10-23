@@ -19,17 +19,19 @@
 #define ALLLED_OFF_L        0xFC
 #define ALLLED_OFF_H        0xFD
 
+
+#define PWM_ADDR	0x40
+
 class PWM
 {
 private:
         int fd;
-        int Address;
         bool Debug;
         float prescaleval;
         float prescale;
 
 public:
-        PWM(int address,bool debug);
+        PWM(bool debug);
         void setPWMFreq(int freq);
         void setPWM(int channel, int on, int off);
 };

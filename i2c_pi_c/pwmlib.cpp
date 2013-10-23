@@ -9,13 +9,12 @@
 
 using namespace std;
 
-PWM::PWM(int address,bool debug)
+PWM::PWM(bool debug)
 {
-        fd = wiringPiI2CSetup(0x40);
-        Address = address;
+        fd = wiringPiI2CSetup(PWM_ADDR);
         Debug = debug;
         if(Debug)
-                cout << "Reseting PCA9685";
+                cout << "Resetting PCA9685";
         wiringPiI2CWriteReg8(fd, MODE1, 0x00);
 
 }
