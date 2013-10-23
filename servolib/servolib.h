@@ -8,9 +8,10 @@
 class Servo: public PWM
 {
 private:
-	int servomin;
-	int servomax;
+	int min_pos;
+	int max_pos;
 	int channel;
+	int pos;
 protected:
 	int get_neutral_pos();	
 public:

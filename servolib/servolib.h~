@@ -8,13 +8,13 @@
 class Servo: public PWM
 {
 private:
-	int servomin;
-	int servomax;
+	int min_pos;
+	int max_pos;
 	int channel;
 protected:
 	int get_neutral_pos();	
 public:
-	Servo(bool debug, int ch, int min, int max): PWM(debug);
+	Servo(bool debug, int ch, int min, int max);
 	int reset_position();
 	int set_position( int );
 	void set_channel( int, int, int );

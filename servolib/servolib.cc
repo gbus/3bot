@@ -9,10 +9,9 @@ Servo::Servo(bool debug, int ch, int min, int max) : PWM(debug)
 	setPWMFreq(PWM_FREQ);
 }
 
-Servo::reset_position()
+int Servo::reset_position()
 {
-	ret = set_position(get_neutral_pos());
-	return ret;
+	return set_position(get_neutral_pos());
 }
 
 
@@ -41,7 +40,7 @@ void Servo::set_servo( int ch, int min, int max )
 int Servo::step_position( int steps )
 {
 	pos += steps;
-	return set_position(self.pos);
+	return set_position(pos);
 }
 
 
