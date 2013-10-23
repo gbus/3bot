@@ -21,7 +21,7 @@ int main(void)
 {
 	Servo s(DEBUG, CHANNEL, MIN, MAX);
 	cout << "Setting servo values" << endl;
-	set_servo( CHANNEL, MIN, MAX );
+	s.set_servo( CHANNEL, MIN, MAX );
 	
 	cout << "Position reset to value " << s.reset_position() << endl;
 	cout << "Stepping +20 " << s.step_position(20) << endl;
