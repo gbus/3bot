@@ -1,4 +1,4 @@
-#include "pwmlib.h"
+#include "servolib.h"
 
 
 Servo::Servo(bool debug, int ch, int min, int max) : PWM(debug)
