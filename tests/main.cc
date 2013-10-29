@@ -26,7 +26,7 @@ int distance(Sonar*);
 
 int main(void)
 {
-	int zero_pos_l, zero_pos_r;
+	int zero_pos, first_pos, rp;
         Servo s(DEBUG, CHANNEL1, MIN, MAX);
         Servo d(DEBUG, CHANNEL2, MIN, MAX);
         Sonar* snr = new Sonar(TRIG, ECHO);
@@ -38,25 +38,39 @@ int main(void)
         sleep(3);
 
 	zero_pos = s.get_current_pos();
+	first_pos = zero_pos + STEP;
 	
-	for (int i==zero_pos; i<=MAX; i+=STEP) {
-		cout << "pos: " << i << "\t";
+	for (int p==first_pos; p<=MAX; p+=STEP) {
+		rp = zero_pos-(p-zero_pos);
+		cout << "pos: " << p << "\t";
 		// Forward
+		s.set_position(rp);
+		d.set_position(p);
+		sleep(2);
+		
 		dist_t1 = distance(snr);
 		sleep(1);
 		dist_t2 = distance(snr);
 		cout << dist_t1-dist_t2 << "\t";
+
+		s.reset_position();
+		d.reset_position();
 		
 		// Reverse
+		s.set_position(p);
+		d.set_position(rp);
+		sleep(2);
+		
 		dist_t1 = distance(snr);
 		sleep(1);
 		dist_t2 = distance(snr);
 		cout << dist_t2-dist_t1 << "\t";	
+
+		s.reset_position();
+		d.reset_position();
 	
 	}
 	
-	s.reset_position();
-	d.reset_position();
 	exit(0);
 }
 
