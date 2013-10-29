@@ -22,7 +22,7 @@
 
 using namespace std;
 
-int distance(Sonar*);
+int distance(Sonar* snr);
 
 int main(void)
 {
@@ -40,12 +40,12 @@ int main(void)
 	zero_pos = s.get_current_pos();
 	first_pos = zero_pos + STEP;
 	
-	for (int p==first_pos; p<=MAX; p+=STEP) {
-		rp = zero_pos-(p-zero_pos);
-		cout << "pos: " << p << "\t";
+	for (int pos=first_pos; pos<=MAX; pos+=STEP) {
+		rp = zero_pos-(pos-zero_pos);
+		cout << "pos: " << pos << "\t";
 		// Forward
 		s.set_position(rp);
-		d.set_position(p);
+		d.set_position(pos);
 		sleep(2);
 		
 		dist_t1 = distance(snr);
@@ -57,7 +57,7 @@ int main(void)
 		d.reset_position();
 		
 		// Reverse
-		s.set_position(p);
+		s.set_position(pos);
 		d.set_position(rp);
 		sleep(2);
 		
