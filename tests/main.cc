@@ -42,14 +42,14 @@ int main(void)
 	
 	for (int pos=first_pos; pos<=MAX; pos+=STEP) {
 		rp = zero_pos-(pos-zero_pos);
-		cout << "pos: " << pos << "\t";
+		cout << pos << "\t";
 		// Forward
 		s.set_position(rp);
 		d.set_position(pos);
 		sleep(2);
 		
 		dist_t1 = distance(snr);
-		sleep(1);
+		sleep(3);
 		dist_t2 = distance(snr);
 		cout << dist_t1-dist_t2 << "\t";
 
@@ -62,9 +62,9 @@ int main(void)
 		sleep(2);
 		
 		dist_t1 = distance(snr);
-		sleep(1);
+		sleep(3);
 		dist_t2 = distance(snr);
-		cout << dist_t2-dist_t1 << "\t";	
+		cout << dist_t2-dist_t1 << endl;	
 
 		s.reset_position();
 		d.reset_position();
