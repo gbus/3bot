@@ -22,7 +22,7 @@
 
 using namespace std;
 
-int distance(Sonar* snr);
+double distance(Sonar* snr);
 
 int main(void)
 {
