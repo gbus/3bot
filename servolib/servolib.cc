@@ -51,6 +51,16 @@ int Servo::get_current_pos()
 	return pos;
 }
 
+// Converts the speed (m/s) in a position for a continous servo
+void Servo::speed_to_pos(float)
+{
+}
+
+
+float Servo::pos_to_speed()
+{
+}
+
 // Get neutral position
 int Servo::get_neutral_pos()
 {
