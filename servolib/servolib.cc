@@ -27,14 +27,6 @@ int Servo::set_position( int position )
 	setPWM(channel, 0, pos);
 	return pos;
 }
-	
-// Set channel to use and load its settings
-void Servo::set_servo( int ch, int min, int max )
-{
-	channel = ch;
-	min_pos	= min;
-	max_pos	= max;
-}
 
 
 // Increase number of steps the current position
@@ -52,13 +44,17 @@ int Servo::get_current_pos()
 }
 
 // Converts the speed (m/s) in a position for a continous servo
-void Servo::speed_to_pos(float)
+int Servo::speed_to_pos(float speed)
 {
+	return ( (max_pos-min_pos)*(speed-MIN_SPEED) / (MAX_SPEED-MIN_SPEED) ) + min_pos;	
 }
 
 
-float Servo::pos_to_speed()
+float Servo::get_current_speed()
 {
+	float speed = 0.0;
+	// implement conversion here
+	return speed;
 }
 
 // Get neutral position

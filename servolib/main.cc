@@ -21,8 +21,9 @@ using namespace std;
 int main(void)
 {
 	Servo s(DEBUG, CHANNEL, MIN, MAX);
-	cout << "Setting servo values" << endl;
-	s.set_servo( CHANNEL, MIN, MAX );
+	cout << "Setting servo to 0.4m/s" << endl;
+	int newpos = s.speed_to_pos(0.4);
+	cout << "Speed in m/s converted to servo pos " << s.set_position(newpos) << endl;
 	
 	cout << "Position reset to value " << s.reset_position() << endl;
 	cout << "Stepping +20 " << s.step_position(20) << endl;

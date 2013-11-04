@@ -21,13 +21,12 @@ protected:
 public:
 	Servo(bool debug, int ch, int min, int max);
 	int reset_position();
-	void set_servo( int, int, int );
 	int step_position( int );
 
 	int set_position( int );
 	int get_current_pos();	
-	void set_speed(float);
 	float get_current_speed();
+	int speed_to_pos(float);
 };
 
 #endif

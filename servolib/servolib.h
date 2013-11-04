@@ -5,7 +5,7 @@
 
 #define PWM_FREQ		60
 
-# Define the min/max speed in m/s
+// Define the min/max speed in m/s
 #define MIN_SPEED		0.2
 #define MAX_SPEED		0.8
 
@@ -21,13 +21,12 @@ protected:
 public:
 	Servo(bool debug, int ch, int min, int max);
 	int reset_position();
-	void set_servo( int, int, int );
 	int step_position( int );
 
 	int set_position( int );
 	int get_current_pos();	
-	void speed_to_pos(float);
-	float pos_to_speed();
+	float get_current_speed();
+	int speed_to_pos(float);
 };
 
 #endif
