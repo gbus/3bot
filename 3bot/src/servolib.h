@@ -1,7 +1,7 @@
 #ifndef servolibH
 #define servolibH
 
-#include "../i2c_pi_c/pwmlib.h"
+#include "pwmlib.h"
 
 #define PWM_FREQ		60
 

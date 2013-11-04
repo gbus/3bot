@@ -1,1 +1,0 @@
-g++ main.cpp sonarlib.cpp -o main -lwiringPi

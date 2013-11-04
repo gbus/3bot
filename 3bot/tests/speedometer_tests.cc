@@ -1,6 +1,6 @@
-#include "../ranger/sonarlib.h"
-#include "../i2c_pi_c/pwmlib.h"
-#include "../servolib/servolib.h"
+#include "../src/sonarlib.h"
+#include "../src/pwmlib.h"
+#include "../src/servolib.h"
 #include <wiringPi.h>
 #include <wiringPiI2C.h>
 #include <iostream>
