@@ -22,7 +22,7 @@ all: tests
 # The Unit Tests
 .PHONY: tests
 #tests: CFLAGS += $(TARGET)
-tests: $(TESTS) $(OBJECTS)
+tests: $(OBJECTS) $(TESTS)
 	g++ -o $@ $(OBJECTS) -lwiringPi
 
 
