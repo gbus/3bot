@@ -1,5 +1,8 @@
 
 #CFLAGS=-g -O2 -Wall -Wextra -Isrc -rdynamic -DNDEBUG $(OPTFLAGS)
+
+CC=g++
+CFLAGS=-c -Wall
 #LIBS=-ldl $(OPTLIBS)
 #PREFIX?=/usr/local
 
@@ -16,23 +19,21 @@ TESTS=$(patsubst %.cc,%,$(TEST_SRC))
 
 # The Target Build
 #all: $(TARGET) $(SO_TARGET) tests
-all: tests
+all: $(SOURCES) $(TEST_SRC) $(TESTS)
 
 
 # The Unit Tests
-.PHONY: tests
+#.PHONY: tests
 #tests: CFLAGS += $(TARGET)
-tests: $(OBJECTS) $(TESTS)
-	g++ -o $@ $(OBJECTS) -lwiringPi
+#tests: $(OBJECTS)
+#	$(CC) -o $@ $(OBJECTS) -lwiringPi
 
+$(TESTS): $(OBJECTS)
+	$(CC) -o $@ $(OBJECTS) -lwiringPi
 
+.cpp.o:
+	$(CC) $(CFLAGS) $< -o $@
 
-pwmlib.o : pwmlib.h
-servolib.o : pwmlib.h servolib.h
-sonarlib.o : sonarlib.h
-
-
-
-#.PHONY : clean
-#clean :
-#     rm $(TESTS) $(OBJECTS)
+.PHONY : clean
+clean :
+     rm $(TESTS) $(OBJECTS)
