@@ -36,4 +36,4 @@ $(TESTS): $(OBJECTS)
 
 .PHONY : clean
 clean :
-     rm $(TESTS) $(OBJECTS)
+	rm $(TESTS) $(OBJECTS)
