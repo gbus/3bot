@@ -1,6 +1,6 @@
 
 #include "../src/pwmlib.h"
-#include "servolib.h"
+#include "../src/servolib.h"
 #include <wiringPi.h>
 #include <wiringPiI2C.h>
 #include <iostream>
