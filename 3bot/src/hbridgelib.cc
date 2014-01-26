@@ -14,12 +14,19 @@
 
 
 
-HBridge::HBridge(int in1, int in2, int in3, int in4, int enA, int enB)
+HBridge::HBridge (	int in1, 
+			int in2, 
+			int in3, 
+			int in4, 
+			int enA, 
+			int enB	) : pwm_m1(false), pwm_m2(false)
 {
-        setPWMFreq(PWM_FREQ);
 	m1_in1 = in1;	m1_in2 = in2;
 	m2_in1 = in3;	m2_in2 = in4;
 	enableA = enA;	enableB = enB;
+
+        pwm_m1.setPWMFreq(PWM_FREQ);
+        pwm_m2.setPWMFreq(PWM_FREQ);
 
 	// Init GPIO
         if (wiringPiSetupGpio () == -1)
@@ -49,8 +56,8 @@ bool HBridge::setSpeed(int percentage)
 {
 	if (percentage>0 && percentage<=100){
 		int ticks = PWM_NO_TICKS * percentage / 100;
-		setPWM(PWM_CH_M1_ENA, 0, ticks);
-		setPWM(PWM_CH_M2_ENB, 0, ticks);
+		pwm_m1.setPWM(enableA, 0, ticks);
+		pwm_m2.setPWM(enableB, 0, ticks);
 		return true;
 	} else return false;
 }
@@ -59,8 +66,8 @@ bool HBridge::setSpeed(int percentage)
 void HBridge::stopMotors(){
 	digitalWrite(m1_in1, HIGH); digitalWrite(m2_in2, HIGH);
 	digitalWrite(m1_in2, HIGH); digitalWrite(m2_in1, HIGH);	
-	setPWM(PWM_CH_M1_ENA, 0, PWM_NO_TICKS/2);
-	setPWM(PWM_CH_M2_ENB, 0, PWM_NO_TICKS/2);
+	pwm_m1.setPWM(enableA, 0, PWM_NO_TICKS/2);
+	pwm_m2.setPWM(enableB, 0, PWM_NO_TICKS/2);
 }
 
 

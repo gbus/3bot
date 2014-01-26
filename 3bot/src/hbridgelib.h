@@ -26,16 +26,16 @@
 class HBridge
 {
 private:
-        PWM pwm_m1(false);
-        PWM pwm_m2(false);
+        PWM pwm_m1;
+        PWM pwm_m2;
 	int m1_in1, m1_in2, m2_in1, m2_in2;
 	int enableA, enableB;
 public:
         HBridge(int, int, int, int, int, int);
 	bool setDirection(bool);
 	bool setSpeed(int);
-	bool stopMotors(int);
-	bool setFreespin();
+	void stopMotors();
+	void setFreespin();
 };
 
 #endif
