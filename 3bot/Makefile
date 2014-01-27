@@ -30,8 +30,12 @@ all: $(SOURCES) $(TEST_SRC) $(TESTS)
 #tests: $(OBJECTS)
 #	$(CC) -o $@ $(OBJECTS) -lwiringPi
 
-$(TESTS): $(OBJECTS) $(TEST_OBJ)
+#$(TESTS): $(OBJECTS) $(TEST_OBJ)
+#	$(CC) -o $@ $(OBJECTS) $(TEST_OBJ) -lwiringPi
+
+hbridgelib_tests:  $(OBJECTS) tests/hbridgelib_tests.cc
 	$(CC) -o $@ $(OBJECTS) -lwiringPi
+
 
 .cpp.o:
 	$(CC) $(CFLAGS) $< -o $@

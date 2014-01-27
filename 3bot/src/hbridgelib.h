@@ -14,7 +14,7 @@
 
 #include "pwmlib.h"
 
-#define PWM_FREQ                60
+#define PWM_FREQ                1000
 
 // Speed definitions
 #define PWM_NO_TICKS		4095
