@@ -12,67 +12,88 @@
 *	Free		0			0
 */
 
-
-
-HBridge::HBridge (	int in1, 
-			int in2, 
-			int in3, 
-			int in4, 
-			int enA, 
-			int enB	) : pwm_m1(false), pwm_m2(false)
+DCMotor::DCMotor ( int in1, int in2, int en ) : pwm_m(false)
 {
-	m1_in1 = in1;	m1_in2 = in2;
-	m2_in1 = in3;	m2_in2 = in4;
-	enableA = enA;	enableB = enB;
-
-        pwm_m1.setPWMFreq(PWM_FREQ);
-        pwm_m2.setPWMFreq(PWM_FREQ);
+	m_in1 = in1; m_in2 = in2;
+	enable = en;
+	pwm_m1.setPWMFreq(PWM_FREQ);
 
 	// Init GPIO
         if (wiringPiSetupGpio () == -1)
         {
                 fprintf (stderr, "Can't initialise wiringPi: %s\n", strerror (errno));
         } else {
-                pinMode(m1_in1, OUTPUT);	pinMode(m1_in2, OUTPUT);
-                pinMode(m2_in1, OUTPUT);	pinMode(m2_in2, OUTPUT);
+                pinMode(m_in1, OUTPUT);	pinMode(m_in2, OUTPUT);
         }
+	
 }
 
-bool HBridge::setDirection(bool d)
+
+bool DCMotor::SetDirection(bool d)
 {
 	if ( d==FW ) {
-		digitalWrite(m1_in1, HIGH); digitalWrite(m2_in2, HIGH);
-		digitalWrite(m1_in2, LOW); digitalWrite(m2_in1, LOW);
+		digitalWrite(m_in1, HIGH);	digitalWrite(m_in2, LOW);
 	} else if ( d==BW ) {
-		digitalWrite(m1_in1, LOW); digitalWrite(m2_in2, LOW);
-		digitalWrite(m1_in2, HIGH); digitalWrite(m2_in1, HIGH);	
+		digitalWrite(m_in1, LOW);	digitalWrite(m_in2, HIGH);	
 	} else {
 		return false;
 	}
         return true;
 }
 
-bool HBridge::setSpeed(int percentage)
+DCMotor::setSpeed(int percentage)
 {
 	if (percentage>0 && percentage<=100){
 		int ticks = PWM_NO_TICKS * percentage / 100;
-		pwm_m1.setPWM(enableA, 0, ticks);
-		pwm_m2.setPWM(enableB, 0, ticks);
+		pwm_m.setPWM(enable, 0, ticks);
 		return true;
 	} else return false;
 }
 
+DCMotor::stopMotor(){
+	digitalWrite(m_in1, HIGH); digitalWrite(m_in2, HIGH);	
+	pwm_m.setPWM(enable, 0, PWM_NO_TICKS);
+}
 
-void HBridge::stopMotors(){
-	digitalWrite(m1_in1, HIGH); digitalWrite(m2_in2, HIGH);
-	digitalWrite(m1_in2, HIGH); digitalWrite(m2_in1, HIGH);	
-	pwm_m1.setPWM(enableA, 0, PWM_NO_TICKS/2);
-	pwm_m2.setPWM(enableB, 0, PWM_NO_TICKS/2);
+DCMotor::setFreespin(){
+	digitalWrite(m_in1, LOW);	digitalWrite(m_in2, LOW);
+	pwm_m.setPWM(enable, 0, 0);
+}
+
+HBridge::HBridge (	int in1, 
+			int in2, 
+			int in3, 
+			int in4, 
+			int enA, 
+			int enB	)
+{
+	m1(in1, in2, enA);
+	m2(in3,	in4, enB);
 }
 
 
-void HBridge::setFreespin(){
-	digitalWrite(m1_in1, LOW); digitalWrite(m2_in2, LOW);
-	digitalWrite(m1_in2, LOW); digitalWrite(m2_in1, LOW);
+bool HBridge::movePlatform(float speed, float radius)
+{
+	// TODO
+	if (speed>=0) {
+		m1.setDirection(FW);
+		m2.setDirection(FW);
+	} else {
+		m1.setDirection(BW);
+		m2.setDirection(BW);
+	}
+
+	m1.setSpeed(50);
+	m2.setSpeed(50);
+	return true;
 }
+
+
+void HBridge::stopPlatform(){
+	// TODO
+	m1.stopMotor();
+	m2.stopMotor();
+
+}
+
 

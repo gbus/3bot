@@ -22,20 +22,29 @@
 #define FW			0
 #define BW			1
 
+class DCMotor
+{
+ private:
+	PWM pwm_m;
+	int m_in1,m_in2;
+	int enable;
+ public:
+	DCMotor(int,int,int);
+	bool setDirection(bool);
+	bool setSpeed(int);
+	void stopMotor();
+	void setFreespin();
+}
+
 
 class HBridge
 {
 private:
-        PWM pwm_m1;
-        PWM pwm_m2;
-	int m1_in1, m1_in2, m2_in1, m2_in2;
-	int enableA, enableB;
+        DCMotor m1;
+        DCMotor m2;
 public:
-        HBridge(int, int, int, int, int, int);
-	bool setDirection(bool);
-	bool setSpeed(int);
-	void stopMotors();
-	void setFreespin();
+        HBridge(int in1, int in2, int in3, int in4, int enA, int enB);
+	bool movePlatform(float speed, float radius);
+	bool stopPlatform();
 };
-
 #endif
