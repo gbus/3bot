@@ -23,25 +23,29 @@ int main()
 	cout << "Initialising. The test begins:" << endl;
 	HBridge	hb(	GPIO_M1_IN1, GPIO_M1_IN2, GPIO_M2_IN3, GPIO_M2_IN4, 
 			PWM_CH_M1_ENA, PWM_CH_M2_ENB );
-
+/*
         cout << "Progressively increase FW speed and break..." << endl;
 	hb.setDirection(FW);
-	for (int p = 10; p<=100; p=p+10) {
+	for (int p = 40; p<=100; p=p+20) {
 		cout << p << "% speed increase" << endl;
 		hb.setSpeed(p);
-		sleep(1);
+		sleep(3);
 	}
 	hb.stopMotors();
 
         cout << "Progressively increase BW speed and let it slow down by itself..." << endl;
 	hb.setDirection(BW);
-	for (int p = 10; p<=100; p=p+10) {
+	for (int p = 40; p<=100; p=p+20) {
 		cout << p << "% speed decrease" << endl;
 		hb.setSpeed(p);
-		sleep(1);
+		sleep(3);
 	}
 	hb.setFreespin();
-
+*/
+hb.setDirection(FW);
+hb.setSpeed(60);
+sleep(60);
+hb.stopMotors();
 	cout << "End of test" << endl;
 
 }
