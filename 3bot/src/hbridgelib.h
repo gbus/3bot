@@ -17,7 +17,7 @@
 #define PWM_FREQ                1000
 
 // Speed definitions
-#define PWM_NO_TICKS		4095
+#define PWM_MAX_TICKS		4095
 
 #define FW			0
 #define BW			1
@@ -32,6 +32,7 @@ class DCMotor
 	DCMotor(int,int,int);
 	bool setDirection(bool);
 	bool setSpeed(int);
+	bool setPWMticks(int);
 	void stopMotor();
 	void setFreespin();
 };
@@ -42,8 +43,10 @@ class HBridge
 private:
         DCMotor rightmotor;
         DCMotor leftmotor;
+	void directPlatform(bool direction);
 public:
         HBridge(int in1, int in2, int in3, int in4, int enA, int enB);
+	bool PWMtuning(bool, int, int);
 	bool movePlatform(float speed, float radius);
 	bool stopPlatform();
 };

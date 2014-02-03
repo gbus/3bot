@@ -42,9 +42,19 @@ int main()
 	}
 	hb.setFreespin();
 */
+
+/*
 hb.movePlatform(3.2, 1.1);	// Here I put fake values for now. movePlatform set motors to half speed 
 sleep(20);
 hb.stopPlatform();
+*/
+
+	int rt,lt;
+	rt = 2000;
+	lt = 2000;
+	hb.PWMtuning(FW, rt, lt);
+	sleep(5);
+	hb.stopPlatform();
 	cout << "End of test" << endl;
 
 }

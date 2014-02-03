@@ -44,15 +44,25 @@ bool DCMotor::setDirection(bool d)
 bool DCMotor::setSpeed(int percentage)
 {
 	if (percentage>0 && percentage<=100){
-		int ticks = PWM_NO_TICKS * percentage / 100;
+		int ticks = PWM_MAX_TICKS * percentage / 100;
 		pwm_m.setPWM(enable, 0, ticks);
 		return true;
 	} else return false;
 }
 
+bool DCMotor::setPWMticks(int ticks)
+{
+	if (ticks>=0 && ticks<PWM_MAX_TICKS) {
+		pwm_m.setPWM(enable, 0, ticks);
+		return true;
+	} else {
+		return false;
+	}
+}
+
 void DCMotor::stopMotor(){
 	digitalWrite(m_in1, HIGH); digitalWrite(m_in2, HIGH);	
-	pwm_m.setPWM(enable, 0, PWM_NO_TICKS);
+	pwm_m.setPWM(enable, 0, PWM_MAX_TICKS);
 }
 
 void DCMotor::setFreespin(){
@@ -69,16 +79,30 @@ HBridge::HBridge (	int in1,
 {
 }
 
+void HBridge::directPlatform(bool direction){
+        if (direction) {
+                rightmotor.setDirection(FW);
+                leftmotor.setDirection(BW);
+        } else {
+                rightmotor.setDirection(BW);
+                leftmotor.setDirection(FW);
+        }
+}
+
+bool HBridge::PWMtuning(bool direction, int tick_1, int tick_2) {
+	directPlatform(direction);
+	if ( rightmotor.setPWMticks(tick_1) && leftmotor.setPWMticks(tick_2) ) {
+		return true;
+	} else return false;
+}
 
 bool HBridge::movePlatform(float speed, float radius)
 {
 	// TODO
 	if (speed>=0) {
-		rightmotor.setDirection(FW);
-		leftmotor.setDirection(BW);
+		directPlatform(FW);
 	} else {
-		rightmotor.setDirection(BW);
-		leftmotor.setDirection(FW);
+		directPlatform(BW);
 	}
 
 	rightmotor.setSpeed(80);
