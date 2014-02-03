@@ -21,7 +21,7 @@ TEST_OBJ=$(patsubst %.cc,%.o,$(TEST_SRC))
 
 # The Target Build
 #all: $(TARGET) $(SO_TARGET) tests
-all: $(SOURCES) $(TEST_SRC) $(TESTS)
+all: $(SOURCES) $(TESTS)
 
 
 # The Unit Tests
@@ -30,11 +30,9 @@ all: $(SOURCES) $(TEST_SRC) $(TESTS)
 #tests: $(OBJECTS)
 #	$(CC) -o $@ $(OBJECTS) -lwiringPi
 
-#$(TESTS): $(OBJECTS) $(TEST_OBJ)
-#	$(CC) -o $@ $(OBJECTS) $(TEST_OBJ) -lwiringPi
-
-hbridgelib_tests:  $(OBJECTS) tests/hbridgelib_tests.cc
+$(TESTS): $(OBJECTS)
 	$(CC) -o $@ $(OBJECTS) -lwiringPi
+
 
 
 .cpp.o:

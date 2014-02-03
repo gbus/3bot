@@ -34,14 +34,14 @@ class DCMotor
 	bool setSpeed(int);
 	void stopMotor();
 	void setFreespin();
-}
+};
 
 
 class HBridge
 {
 private:
-        DCMotor m1;
-        DCMotor m2;
+        DCMotor rightmotor;
+        DCMotor leftmotor;
 public:
         HBridge(int in1, int in2, int in3, int in4, int enA, int enB);
 	bool movePlatform(float speed, float radius);

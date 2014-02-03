@@ -16,7 +16,7 @@ DCMotor::DCMotor ( int in1, int in2, int en ) : pwm_m(false)
 {
 	m_in1 = in1; m_in2 = in2;
 	enable = en;
-	pwm_m1.setPWMFreq(PWM_FREQ);
+	pwm_m.setPWMFreq(PWM_FREQ);
 
 	// Init GPIO
         if (wiringPiSetupGpio () == -1)
@@ -29,7 +29,7 @@ DCMotor::DCMotor ( int in1, int in2, int en ) : pwm_m(false)
 }
 
 
-bool DCMotor::SetDirection(bool d)
+bool DCMotor::setDirection(bool d)
 {
 	if ( d==FW ) {
 		digitalWrite(m_in1, HIGH);	digitalWrite(m_in2, LOW);
@@ -41,7 +41,7 @@ bool DCMotor::SetDirection(bool d)
         return true;
 }
 
-DCMotor::setSpeed(int percentage)
+bool DCMotor::setSpeed(int percentage)
 {
 	if (percentage>0 && percentage<=100){
 		int ticks = PWM_NO_TICKS * percentage / 100;
@@ -50,12 +50,12 @@ DCMotor::setSpeed(int percentage)
 	} else return false;
 }
 
-DCMotor::stopMotor(){
+void DCMotor::stopMotor(){
 	digitalWrite(m_in1, HIGH); digitalWrite(m_in2, HIGH);	
 	pwm_m.setPWM(enable, 0, PWM_NO_TICKS);
 }
 
-DCMotor::setFreespin(){
+void DCMotor::setFreespin(){
 	digitalWrite(m_in1, LOW);	digitalWrite(m_in2, LOW);
 	pwm_m.setPWM(enable, 0, 0);
 }
@@ -65,10 +65,8 @@ HBridge::HBridge (	int in1,
 			int in3, 
 			int in4, 
 			int enA, 
-			int enB	)
+			int enB	) : rightmotor(in1, in2, enA), leftmotor(in3, in4, enB)
 {
-	m1(in1, in2, enA);
-	m2(in3,	in4, enB);
 }
 
 
@@ -76,24 +74,24 @@ bool HBridge::movePlatform(float speed, float radius)
 {
 	// TODO
 	if (speed>=0) {
-		m1.setDirection(FW);
-		m2.setDirection(FW);
+		rightmotor.setDirection(FW);
+		leftmotor.setDirection(BW);
 	} else {
-		m1.setDirection(BW);
-		m2.setDirection(BW);
+		rightmotor.setDirection(BW);
+		leftmotor.setDirection(FW);
 	}
 
-	m1.setSpeed(50);
-	m2.setSpeed(50);
+	rightmotor.setSpeed(80);
+	leftmotor.setSpeed(80);
 	return true;
 }
 
 
-void HBridge::stopPlatform(){
+bool HBridge::stopPlatform(){
 	// TODO
-	m1.stopMotor();
-	m2.stopMotor();
-
+	rightmotor.stopMotor();
+	leftmotor.stopMotor();
+	return true;
 }
 
 

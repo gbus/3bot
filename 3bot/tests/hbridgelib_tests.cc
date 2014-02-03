@@ -7,9 +7,9 @@
 
 
 // GPIO output pins
-#define GPIO_M1_IN1		17
+#define GPIO_M1_IN1		17	// Right wheel
 #define GPIO_M1_IN2		27
-#define GPIO_M2_IN3		18
+#define GPIO_M2_IN3		18	// Left wheel
 #define GPIO_M2_IN4		23
 
 // Motor speed control (pwm)
