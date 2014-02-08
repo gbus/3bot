@@ -26,7 +26,7 @@ int main()
 
 	printw("enter value of left and right motors:"); scanw("%d %d",&lm,&rm); 
 	printw("Set new PWM values: %d %d\n",lm,rm);
-	hb.PWMtuning(FW, lm, rm);
+	hb.PWMtuning(FW, rm, lm);
 
         getch();                        /* Wait for user input */
 	

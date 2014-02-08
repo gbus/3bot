@@ -1,8 +1,6 @@
 
-/*
 #include <wiringPi.h>
 #include <wiringPiI2C.h>
-*/
 #include <iostream>
 #include <time.h>
 
@@ -30,12 +28,14 @@ int main (void)
 
 	while (1)
 	{
-		if (left_curr = digitalRead(LEFT_ENCODER) != left_status)
+		left_curr = digitalRead(LEFT_ENCODER);
+		if (left_curr != left_status)
 		{
 			left_status = left_curr;
 			cout << "Left state changed to: " << left_status << endl;
 		}
-		if (right_curr = digitalRead(RIGHT_ENCODER) != right_status)
+		right_curr = digitalRead(RIGHT_ENCODER);
+		if (right_curr != right_status)
 		{
 			right_status = right_curr;
 			cout << "Right state changed to: " << right_status << endl;

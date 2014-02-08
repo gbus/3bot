@@ -31,13 +31,11 @@ DCMotor::DCMotor ( int in1, int in2, int en ) : pwm_m(false)
 
 bool DCMotor::setDirection(bool d)
 {
-	if ( d==FW ) {
+	if ( d ) {
 		digitalWrite(m_in1, HIGH);	digitalWrite(m_in2, LOW);
-	} else if ( d==BW ) {
-		digitalWrite(m_in1, LOW);	digitalWrite(m_in2, HIGH);	
 	} else {
-		return false;
-	}
+		digitalWrite(m_in1, LOW);	digitalWrite(m_in2, HIGH);	
+	} 
         return true;
 }
 
