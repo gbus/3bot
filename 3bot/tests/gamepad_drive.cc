@@ -13,17 +13,19 @@
 #define PWM_CH_M1_ENA           12
 #define PWM_CH_M2_ENB           13
 
+using namespace std;
 
 int print_usage(int exit_code) {
 	cout << "Usage: gamepad_drive -w widget -c command -e event -v value/angle [-i intensity]" << endl;
 	return exit_code;
 }
 
-using namespace std; 
 int main(int argc, char* argv[])
 {
-	char* widget, command, event, value;
+	char *widget, *command, *event, *value;
 	float intensity;
+	int next_option;
+
 
 	const char* const short_options = "hw:c:e:v:i:";
 	const struct option long_options[] = {
@@ -53,10 +55,10 @@ int main(int argc, char* argv[])
 				event = optarg;
 				break;
 			case 'v':
-				value = atoi(optarg);
+				value = optarg;
 				break;
 			case 'i':
-				intensity = optarg;
+				intensity = atof(optarg);
 				break;
 			case '?': /* The user specified an invalid option. */
 				print_usage (1);
@@ -71,10 +73,10 @@ int main(int argc, char* argv[])
 	GamePadHBridge	gphb(	GPIO_M1_IN1, GPIO_M1_IN2, GPIO_M2_IN3, GPIO_M2_IN4, 
 			PWM_CH_M1_ENA, PWM_CH_M2_ENB );
 	if (widget=="gamepad"){
-		gphb.setCommand(command, event, value, intensity)
+		gphb.setCommand(command, event, value, intensity);
 		if (!gphb.runCommand()) {
 			cout << "Command not recognized." << endl;
-			return -1
+			return -1;
 		}
 	} else {
 		cout << "Widget not supported." << endl;

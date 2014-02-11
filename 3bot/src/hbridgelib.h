@@ -64,6 +64,7 @@ class GamePadHBridge:public HBridge
 private:
 	char*	command;
 	char*	event;
+	char*	button_value;
 	int	value;
 	float	intensity;
 	float	pwm_left;
@@ -71,8 +72,8 @@ private:
 	void	calculateDirection();
 	void	angleToPWMspeeds();
 public:
-	int GamePadHBridge(int in1, int in2, int in3, int in4, int enA, int enB);
-	void setCommand(char* c, char* e, int v, float i);
+	GamePadHBridge(int in1, int in2, int in3, int in4, int enA, int enB);
+	void setCommand(char* c, char* e, char* v, float i);
 	int runCommand();
 };
 

@@ -116,7 +116,7 @@ bool HBridge::stopPlatform(){
 	return true;
 }
 
-int GamePadHBridge::GamePadHBridge(
+GamePadHBridge::GamePadHBridge(
 				int in1,
 				int in2,
 				int in3,
@@ -170,10 +170,11 @@ void GamePadHBridge::angleToPWMspeeds(){
 	}
 }
 
-void GamePadHBridge::setCommand(char* c, char* e, int v, float i){
+void GamePadHBridge::setCommand(char* c, char* e, char* v, float i){
+	if ( c == "jl" ) value = (int)v;
+	else button_value = v;
 	command		= c;
 	event		= e;
-	value		= v;
 	intensity	= i;
 }
 
@@ -185,9 +186,9 @@ int GamePadHBridge::runCommand(){
 			calculateDirection();
 			angleToPWMspeeds();
 			rightmotor.setPWMticks(pwm_right);
-			leftmotor.setPWMticks(pwm_left)
+			leftmotor.setPWMticks(pwm_left);
 		}
-	} else (command[0] == 'b'){
+	} else if (command[0] == 'b'){
 		stopPlatform();
 	} else return -1;
 }
