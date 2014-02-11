@@ -22,6 +22,13 @@
 #define FW			0
 #define BW			1
 
+// GamePad control definitions
+#define	GAMEPAD_LEFT	0
+#define	GAMEPAD_FW	90
+#define	GAMEPAD_RIGHT	180
+#define	GAMEPAD_BACK	270
+
+
 class DCMotor
 {
  private:
@@ -40,7 +47,7 @@ class DCMotor
 
 class HBridge
 {
-private:
+protected:
         DCMotor rightmotor;
         DCMotor leftmotor;
 	void directPlatform(bool direction);
@@ -50,4 +57,24 @@ public:
 	bool movePlatform(float speed, float radius);
 	bool stopPlatform();
 };
+
+
+class GamePadHBridge:public HBridge
+{
+private:
+	char*	command;
+	char*	event;
+	int	value;
+	float	intensity;
+	float	pwm_left;
+	float	pwm_right;
+	void	calculateDirection();
+	void	angleToPWMspeeds();
+public:
+	int GamePadHBridge(int in1, int in2, int in3, int in4, int enA, int enB);
+	void setCommand(char* c, char* e, int v, float i);
+	int runCommand();
+};
+
+
 #endif

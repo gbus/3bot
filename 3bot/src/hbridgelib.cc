@@ -116,4 +116,78 @@ bool HBridge::stopPlatform(){
 	return true;
 }
 
+int GamePadHBridge::GamePadHBridge(
+				int in1,
+				int in2,
+				int in3,
+				int in4,
+				int enA,
+				int enB) : HBridge(in1,in2,in3,in4,enA,enB){
+	
+}
 
+void GamePadHBridge::calculateDirection(){
+	// Top half circle of the joystick is in 0-180 degrees: move forward
+	if (value >= 0 and value <= 180) {
+		directPlatform(FW);
+	} else {
+		directPlatform(BW);
+	}
+}
+
+/*
+*
+*
+*
+*/
+void GamePadHBridge::angleToPWMspeeds(){
+	int sector;
+	if (value>=0 and value<90) {
+		sector=1;
+	} else if (value>=90 and value<180) {
+		sector=2;
+		value = value - 90;
+	} else if (value>=180 and value<270) {
+		sector=3;
+		value = value - 180;
+	} else if (value>=270 and value<360) {
+		sector=4;
+		value = value - 270;
+	}
+
+	// From here "value" is a number between 0 and 90
+	// Calculate no of ticks proportionally to "value"
+	// and reduce according to "intensity"
+	int jl_pwm_val = (int)PWM_MAX_TICKS*value/90*intensity;
+	int jl_pwm_max = (int)PWM_MAX_TICKS * intensity;
+
+	if (sector == 1 or sector == 4) { // Joystick on the right
+		pwm_left	= jl_pwm_max;
+		pwm_right	= jl_pwm_val;
+	} else { // Joystick on the left
+		pwm_left	= jl_pwm_val;
+		pwm_right	= jl_pwm_max;
+	}
+}
+
+void GamePadHBridge::setCommand(char* c, char* e, int v, float i){
+	command		= c;
+	event		= e;
+	value		= v;
+	intensity	= i;
+}
+
+int GamePadHBridge::runCommand(){
+	if (command == "jl"){
+		if (event == "release") {
+			stopPlatform();
+		} else if (event == "press") {
+			calculateDirection();
+			angleToPWMspeeds();
+			rightmotor.setPWMticks(pwm_right);
+			leftmotor.setPWMticks(pwm_left)
+		}
+	} else (command[0] == 'b'){
+		stopPlatform();
+	} else return -1;
+}
