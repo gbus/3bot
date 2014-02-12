@@ -3,7 +3,11 @@
 #include <string.h>
 #include <errno.h>
 #include <stdio.h> 
+#include <iostream>
+#include <math.h>
+#include <stdlib.h>
 
+using namespace std;
 /* Motor control inputs:
 * 		M1_IN1 / M2_IN4		M1_IN2 / M2_IN3	
 *	FW		1			0
@@ -116,6 +120,19 @@ bool HBridge::stopPlatform(){
 	return true;
 }
 
+
+
+
+
+
+
+
+
+/*
+*
+* GamePadHBridge
+*
+*/
 GamePadHBridge::GamePadHBridge(
 				int in1,
 				int in2,
@@ -146,20 +163,20 @@ void GamePadHBridge::angleToPWMspeeds(){
 		sector=1;
 	} else if (value>=90 and value<180) {
 		sector=2;
-		value = value - 90;
+		value = 90 - (value - 90);
 	} else if (value>=180 and value<270) {
 		sector=3;
 		value = value - 180;
 	} else if (value>=270 and value<360) {
 		sector=4;
-		value = value - 270;
+		value = 90 - (value - 270);
 	}
 
 	// From here "value" is a number between 0 and 90
 	// Calculate no of ticks proportionally to "value"
 	// and reduce according to "intensity"
-	int jl_pwm_val = (int)PWM_MAX_TICKS*value/90*intensity;
-	int jl_pwm_max = (int)PWM_MAX_TICKS * intensity;
+	int jl_pwm_val = round(PWM_MAX_TICKS*value/90*intensity);
+	int jl_pwm_max = round(PWM_MAX_TICKS * intensity);
 
 	if (sector == 1 or sector == 4) { // Joystick on the right
 		pwm_left	= jl_pwm_max;
@@ -168,21 +185,23 @@ void GamePadHBridge::angleToPWMspeeds(){
 		pwm_left	= jl_pwm_val;
 		pwm_right	= jl_pwm_max;
 	}
+cout << " pwml: "<< pwm_left << " pwmr: " << pwm_right <<endl;
 }
 
 void GamePadHBridge::setCommand(char* c, char* e, char* v, float i){
-	if ( c == "jl" ) value = (int)v;
+	if ( strcmp(c, "jl") == 0 ) value = atoi(v);
 	else button_value = v;
 	command		= c;
 	event		= e;
 	intensity	= i;
+cout << "Set value to " << value << endl;
 }
 
 int GamePadHBridge::runCommand(){
-	if (command == "jl"){
-		if (event == "release") {
+	if (strcmp(command, "jl") == 0){
+		if (strcmp(event, "release") == 0) {
 			stopPlatform();
-		} else if (event == "press") {
+		} else if (strcmp(event, "press")==0) {
 			calculateDirection();
 			angleToPWMspeeds();
 			rightmotor.setPWMticks(pwm_right);
@@ -191,4 +210,5 @@ int GamePadHBridge::runCommand(){
 	} else if (command[0] == 'b'){
 		stopPlatform();
 	} else return -1;
+	return 0;
 }

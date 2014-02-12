@@ -1,4 +1,4 @@
-
+#include <string.h>
 #include <iostream>
 #include <cstdlib>
 #include <getopt.h>
@@ -69,17 +69,16 @@ int main(int argc, char* argv[])
 		}
 	} while (next_option != -1);
 
-
 	GamePadHBridge	gphb(	GPIO_M1_IN1, GPIO_M1_IN2, GPIO_M2_IN3, GPIO_M2_IN4, 
 			PWM_CH_M1_ENA, PWM_CH_M2_ENB );
-	if (widget=="gamepad"){
+	if (strcmp(widget, "gamepad")==0) {
 		gphb.setCommand(command, event, value, intensity);
 		if (!gphb.runCommand()) {
 			cout << "Command not recognized." << endl;
 			return -1;
 		}
 	} else {
-		cout << "Widget not supported." << endl;
+		cout << "Widget -"<< widget<<"- not supported." << endl;
 		return -1;
 	}
 	
