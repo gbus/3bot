@@ -21,7 +21,7 @@ DCMotor::DCMotor(int pin1, int pin2, int pin3)
   pinMode(_power_pin, OUTPUT);
 
   setDirection(FW);
-  analogWrite(PWM_PIN, 0);
+  analogWrite(_power_pin, 0);
 }
 
 
@@ -48,7 +48,7 @@ void DCMotor::setDirection(bool d)
 /// Give power to the motor
 void DCMotor::setPower(int power)
 {
-	int throttle = map(abs(speed),0,100,0,255);
+	int throttle = map(abs(power),0,100,0,255);
 	if (throttle > 255) throttle = 255;
 	analogWrite( _power_pin, throttle);
 
