@@ -1,0 +1,5 @@
+DCMotor	KEYWORD1
+setDirection	KEYWORD2
+setPower	KEYWORD2
+off	KEYWORD2
+brake	KEYWORD2

@@ -15,13 +15,11 @@ DCMotor::DCMotor(int pin1, int pin2, int pin3)
   _dir_pin_1	= pin1;
   _dir_pin_2	= pin2;
   _power_pin	= pin3;
-}
 
-DCMotor::begin()
-{
   pinMode(_dir_pin_1, OUTPUT);
   pinMode(_dir_pin_2, OUTPUT);
   pinMode(_power_pin, OUTPUT);
+
   setDirection(FW);
   analogWrite(PWM_PIN, 0);
 }

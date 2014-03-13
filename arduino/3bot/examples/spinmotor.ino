@@ -1,11 +1,15 @@
 #include <hbridgelib.h>
 
-DCMotor m1;
+
+#define DIRECTION_PIN_A 31
+#define DIRECTION_PIN_B 32
+#define PWM_PIN 2
+
+DCMotor m1(DIRECTION_PIN_A, DIRECTION_PIN_B, PWM_PIN);
 
 void setup()
 {
   Serial.begin(115200);
-  m1.begin();
 }
 
 void loop()
