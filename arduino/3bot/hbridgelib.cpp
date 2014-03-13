@@ -10,6 +10,13 @@
 #include <pins_arduino.h>
 #endif
 
+
+
+/*
+*
+* DCMotor Class definitions
+*
+*/
 DCMotor::DCMotor(int pin1, int pin2, int pin3)
 {
   _dir_pin_1	= pin1;
@@ -88,5 +95,34 @@ void DCMotor::brake()
 	Serial.println(_dir_pin_1);
 	Serial.println(_dir_pin_2);
 #endif
+}
+
+
+
+/*
+*
+* EncodedMotor Class definitions
+*
+*/
+EncodedMotor::EncodedMotor(int pin1, int pin2, int pin3, int pin4) : DCMotor(pin1,pin2,pin3)
+{
+  _pulse_pin	= pin4;
+  _curr_speed	= 0;
+  pinMode(_pulse_pin, INPUT);
+}
+
+void EncodedMotor::updateSpeed()
+{
+  
+}
+
+void EncodedMotor::setSpeed(int speed_target)
+{
+  
+}
+
+float EncodedMotor::getSpeed()
+{
+  return _curr_speed;
 }
 

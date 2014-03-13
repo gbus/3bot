@@ -6,6 +6,8 @@
 #define FW                      0
 #define BW                      1
 
+// Encoder settings (No. of ticks: 68, Wheel diameter in meters: 0.05549)
+#define TICKS_PER_METER 390  // ticks/(diam*pi) = 68/(0.05549*3.14) 
 
 /// ADJUST BRAKING AND FADING SPEED
 #define SLOWCHANGEDELAY 10 // higher number: slower fading: 1=no fading

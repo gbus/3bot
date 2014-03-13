@@ -20,4 +20,20 @@ class DCMotor
     void brake();
 
 };
+
+class EncodedMotor:public DCMotor
+{
+
+  private:
+    int _pulse_pin;
+    float _curr_speed;
+  protected:
+    void updateSpeed();
+  public:
+    EncodedMotor(int pin1, int pin2, int pin3, int pin4);
+    void setSpeed(int speed_target);
+    float getSpeed();
+
+};
+
 #endif
