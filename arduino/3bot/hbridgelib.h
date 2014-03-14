@@ -27,6 +27,7 @@ class EncodedMotor:public DCMotor
   private:
     int _pulse_pin;
     float _curr_speed;
+    unsigned long prevtime;
   protected:
     void updateSpeed();
   public:

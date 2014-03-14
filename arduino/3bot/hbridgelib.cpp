@@ -108,11 +108,21 @@ EncodedMotor::EncodedMotor(int pin1, int pin2, int pin3, int pin4) : DCMotor(pin
 {
   _pulse_pin	= pin4;
   _curr_speed	= 0;
+  _prevtime	= millis();
   pinMode(_pulse_pin, INPUT);
+  digitalWrite(_pulse_pin, HIGH);
+  // Here attach the input pin interrupt to a ISR
+  //attachinput(...);
 }
 
+// to be run in the sketch loop
+// if a predefined period of time is passed get the counter value and calculate the speed
 void EncodedMotor::updateSpeed()
 {
+  unsigned long currtime=millis();
+  if ((currtime - _prevtime) >= SPEED_UPDATE_MS) {
+	//do speed calculation and reset counter
+  }
   
 }
 
