@@ -21,18 +21,21 @@ class DCMotor
 
 };
 
+void encoder_isr();
+
 class EncodedMotor:public DCMotor
 {
 
   private:
     int _pulse_pin;
+    int _intr;
     float _curr_speed;
-    unsigned long prevtime;
-  protected:
-    void updateSpeed();
+    float _target_speed;
+    unsigned long _prevtime;
   public:
-    EncodedMotor(int pin1, int pin2, int pin3, int pin4);
-    void setSpeed(int speed_target);
+    void updateSpeed();
+    EncodedMotor(int pin1, int pin2, int pin3, int pin4, int intr);
+    void setSpeed(float target);
     float getSpeed();
 
 };

@@ -10,7 +10,7 @@
 #include <pins_arduino.h>
 #endif
 
-
+volatile unsigned long pulse_no;
 
 /*
 *
@@ -104,15 +104,16 @@ void DCMotor::brake()
 * EncodedMotor Class definitions
 *
 */
-EncodedMotor::EncodedMotor(int pin1, int pin2, int pin3, int pin4) : DCMotor(pin1,pin2,pin3)
+EncodedMotor::EncodedMotor(int pin1, int pin2, int pin3, int pin4, int intr) : DCMotor(pin1,pin2,pin3)
 {
   _pulse_pin	= pin4;
+  _intr		= intr;
   _curr_speed	= 0;
   _prevtime	= millis();
   pinMode(_pulse_pin, INPUT);
   digitalWrite(_pulse_pin, HIGH);
   // Here attach the input pin interrupt to a ISR
-  //attachinput(...);
+  attachInterrupt(_intr, encoder_isr, CHANGE);
 }
 
 // to be run in the sketch loop
@@ -121,14 +122,20 @@ void EncodedMotor::updateSpeed()
 {
   unsigned long currtime=millis();
   if ((currtime - _prevtime) >= SPEED_UPDATE_MS) {
-	//do speed calculation and reset counter
+	//do speed calculation here...
+	_curr_speed = (pulse_no/TICKS_PER_METER) / (SPEED_UPDATE_MS/1000);
+	// ...and reset timer and counter
+	_prevtime = currtime;
+	pulse_no = 0;
   }
-  
 }
 
-void EncodedMotor::setSpeed(int speed_target)
+void EncodedMotor::setSpeed(float target)
 {
-  
+  _target_speed = target;
+  // Get the current speed from the encoder and compare with target
+  // If different increase/decrease power (setPower)
+  // ... to do ...
 }
 
 float EncodedMotor::getSpeed()
@@ -136,3 +143,6 @@ float EncodedMotor::getSpeed()
   return _curr_speed;
 }
 
+void encoder_isr() {
+	pulse_no++;
+}
