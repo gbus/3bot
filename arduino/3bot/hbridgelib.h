@@ -11,6 +11,8 @@ class DCMotor
     int _dir_pin_2;
     int _power_pin;
     int _dir;
+  protected:
+    unsigned int _power;
   public:
     DCMotor(int pin1, int pin2, int pin3);
     void setDirection(bool d);

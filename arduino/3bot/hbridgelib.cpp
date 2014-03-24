@@ -22,6 +22,7 @@ DCMotor::DCMotor(int pin1, int pin2, int pin3)
   _dir_pin_1	= pin1;
   _dir_pin_2	= pin2;
   _power_pin	= pin3;
+  _power	= 0;
 
   pinMode(_dir_pin_1, OUTPUT);
   pinMode(_dir_pin_2, OUTPUT);
@@ -58,6 +59,7 @@ void DCMotor::setPower(int power)
 	int throttle = map(abs(power),0,100,0,255);
 	if (throttle > 255) throttle = 255;
 	analogWrite( _power_pin, throttle);
+	_power = power;
 
 #ifdef DEBUG_MOTORS
 	Serial.println("Power for motor ");
@@ -116,26 +118,35 @@ EncodedMotor::EncodedMotor(int pin1, int pin2, int pin3, int pin4, int intr) : D
   attachInterrupt(_intr, encoder_isr, CHANGE);
 }
 
-// to be run in the sketch loop
-// if a predefined period of time is passed get the counter value and calculate the speed
+// to be run in the sketch loop and delayed MAIN_LOOP_DELAY milliseconds
+// - Get the counter value and calculate the speed;
+// - Compare the current speed vs target speed and adjust power.
 void EncodedMotor::updateSpeed()
 {
-  unsigned long currtime=millis();
-  if ((currtime - _prevtime) >= SPEED_UPDATE_MS) {
-	//do speed calculation here...
-	_curr_speed = (pulse_no/TICKS_PER_METER) / (SPEED_UPDATE_MS/1000);
-	// ...and reset timer and counter
-	_prevtime = currtime;
-	pulse_no = 0;
+  unsigned long currtime = millis();
+  unsigned long elapsed = _prevtime - currtime;
+
+  //do speed calculation here...
+  _curr_speed = (pulse_no/TICKS_PER_METER) / (elapsed/1000);
+  // ...and reset timer and counter
+  _prevtime = currtime;
+  pulse_no = 0;
+
+
+  // Compare the current speed with target speed.
+  // If different increase/decrease power (setPower)
+  unsigned int speeddiff = _target_speed - _curr_speed;
+  unsigned int p_inc = 1;
+  if (_curr_speed < _target_speed) {
+	setPower(_power+p_inc);
+  } else if (_curr_speed > _target_speed) {
+	if (_power > 0)	setPower(_power-p_inc);
   }
 }
 
 void EncodedMotor::setSpeed(float target)
 {
   _target_speed = target;
-  // Get the current speed from the encoder and compare with target
-  // If different increase/decrease power (setPower)
-  // ... to do ...
 }
 
 float EncodedMotor::getSpeed()
