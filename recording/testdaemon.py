@@ -3,7 +3,7 @@ import time
 import sys
 
 from daemon import runner
-#import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 
 
 class App():
@@ -15,29 +15,35 @@ class App():
 		self.pidfile_timeout = 5
 		self.rec_button = 17
 		self.recording = False
-		#GPIO.setmode(GPIO.BCM)
-		#GPIO.setup(self.rec_button, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-		#GPIO.add_event_detect(self.rec_button, GPIO.RISING)
+		GPIO.setmode(GPIO.BCM)
+		GPIO.setup(self.rec_button, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+		GPIO.add_event_detect(self.rec_button, GPIO.RISING)
 
 	def run(self):
+		logger.info("Starting running")
+		print("+++++++++++++++")
 		while True:
 			# Check button pushed
-                        #if GPIO.event_detected(rec_button):
-			if self.recording==True:
-				self.recording=False
-				logger.info("Stop recording")
-				# Stop capturing
-			else:
-				self.recording=True
-				logger.info("Start recording")
-				# Start capturing 
+			if GPIO.event_detected(self.rec_button):
+				print "Event detected!"
+				if self.recording==True:
+					self.recording=False
+					logger.info("Stop recording")
+					# Stop capturing
+				else:
+					self.recording=True
+					logger.info("Start recording")
+					# Start capturing 
 
 			# If recording read metrics from 9 axis sensor and get frame id
 			# append all to logging file
-			if recording:
+			if self.recording:
 				# Get gyro metrics
+				pass
 
 			time.sleep(1)
+	def cleanup(self):
+		GPIO.cleanup(self.rec_button)	
 
 app = App()
 logger = logging.getLogger("DaemonLog")
@@ -51,5 +57,5 @@ daemon_runner = runner.DaemonRunner(app)
 daemon_runner.daemon_context.files_preserve=[handler.stream]
 daemon_runner.do_action()
 
-#GPIO.cleanup(rec_button)
+app.cleanup()
 
