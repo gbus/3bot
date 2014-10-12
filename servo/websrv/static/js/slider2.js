@@ -7,8 +7,8 @@
 
 var webserver_address = location.host;
 
-var y_channel = 5
-var x_channel = 4
+var y_channel = 12
+var x_channel = 11
 var position_url  = 'http://' + webserver_address + '/servo/position'
 var settings_url  = 'http://' + webserver_address + '/servo/config'
 
