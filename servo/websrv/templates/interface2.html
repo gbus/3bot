@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>3Bot</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <script type="text/javascript" src="./static/js/jquery-1.2.6.min.js"></script>
+    <script type="text/javascript">
+index = 0;
+function incrementIndex() {
+    index += 1;
+    document.getElementById('armdisplay').innerHTML = index; 
+    }
+function dosomething() {
+    index += 1;
+    document.getElementById('lwheeldisplay').innerHTML = index; 
+    }
+    </script>
+
+
+
+
+
+    <!-- Styles -->
+    <link href="interface_files/bootstrap.css" rel="stylesheet">
+
+<style>
+    /* Landscape phone to portrait tablet */
+    @media (max-width: 767px) {
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    }
+#viewport {
+    position: relative;
+    display: inline-block;
+}
+#viewport * {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+#image {
+    z-index: 5;
+    text-align: center;
+    border: 1px solid blue;
+}
+#viewport #armup {
+    background: url('./static/img/robot.png') left center no-repeat;
+    margin: -25px -25px;
+    top: 90%;
+    left: 90%;
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    z-index: 10;
+}
+
+#viewport #lwheel {
+    background: url('./static/img/robot.png') left center no-repeat;
+    margin: 25px 25px;
+    top: 90%;
+    left: 10px;
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    z-index: 10;
+}
+
+.displaycell_br {
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    z-index: 12;
+    border: 1px solid blue;
+    top: 90%;
+    left: 90%;
+}
+
+.displaycell_bl {
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    z-index: 12;
+    border: 1px solid blue;
+    top: 90%;
+    left: 10px;
+}
+
+</style>
+
+
+</head>
+
+
+
+
+
+<body>
+
+<div id="viewport">
+    <img id="image"  class="img-polaroid" src="./static/img/tv-test-screen.jpg"/>
+
+    <a id="armup" href="javascript:incrementIndex()"></a>
+    <div id="armdisplay" class="displaycell_br"> </div>
+
+
+    <a id="lwheel" href="javascript:dosomething()"></a>
+    <div id="lwheeldisplay" class="displaycell_bl"> </div>
+</div>
+
+
+</body>
+</html>
