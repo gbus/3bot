@@ -1,7 +1,7 @@
 /*!
- * slider to control xy servos
+ * controls for 3bot camera viewer
  * uses ajax to control restful interface to servos
- * Date: 2014-10-07
+ * Date: 2014-10-14
  */
 
 
@@ -9,9 +9,12 @@ var webserver_address = location.host;
 
 var y_channel = 12
 var x_channel = 11
+var step_val  = 10
+
 var position_url  = 'http://' + webserver_address + '/servo/position'
 var settings_url  = 'http://' + webserver_address + '/servo/config'
-
+var neutral_url	  = 'http://' + webserver_address + '/servo/neutral'
+var step_url	  = 'http://' + webserver_address + '/servo/step'
 
 function loadSettings (url, ch, slider_name) {
     var PageUrl = url + '/' + ch;
@@ -32,8 +35,6 @@ function loadSettings (url, ch, slider_name) {
     });
 }
 
-
-
 function loadRestfulData (url, ch, val) {
     var PageUrl = url + '/' + ch+'/' + val;
     //Set the content pane to a loading screen
@@ -50,32 +51,41 @@ function loadRestfulData (url, ch, val) {
 }
 
 
-// Get min,max for slides with REST calls
+function resetPosition (url, ch) {
+    var PageUrl = url + '/' + ch;
+    //Set the content pane to a loading screen
+    $('#content-pane').text('Resetting camera position');
+    //Load the data in using jQuerys ajax call
+    $.ajax({
+        url:PageUrl,
+        dataType:'json',
+        success:function (data) {
+            //Once we receive the data, set it to the content pane.
+            $('#content-pane').text("Channel: "+data["channel"]+" Position: "+data["pos"]);
+        }
+    });
+}
+
+// Get min,max values with REST calls
 loadSettings (settings_url, x_channel, '#xpos');
 loadSettings (settings_url, y_channel, '#ypos');
 
 
-$( "#xpos" ).slider({
-    formatter: function(value) {
-        return 'Current value: ' + value;
-    }
-});
-
-$("#xpos").on("slide", function(slideEvt) {
-	loadRestfulData(position_url, x_channel, slideEvt.value)
-	$("#xposSliderVal").text(slideEvt.value);
-});
+// Set neutral position
+loadSettings (settings_url, x_channel);
+loadSettings (settings_url, y_channel);
 
 
-$( "#ypos" ).slider({
-    formatter: function(value) {
-        return 'Current value: ' + value;
-    }
+
+$('#Y_camup').click(function() {
+    $.ajax({
+        url: step_url + '/' + y_channel +'/' + step_val,
+        success: function(data) {
+            $('#yposVal').text(data["pos"]);
+        }
+    });
+
 });
 
-$("#ypos").on("slide", function(slideEvt) {
-	loadRestfulData(position_url, y_channel, slideEvt.value)
-	$("#yposSliderVal").text(slideEvt.value);
-});
 
 
