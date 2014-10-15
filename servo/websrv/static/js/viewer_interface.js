@@ -9,13 +9,13 @@ var webserver_address = location.host;
 
 var y_channel = 12
 var x_channel = 11
-var step_val  = 10
+var step_val  = 30
 
 var position_url  = 'http://' + webserver_address + '/servo/position'
 var settings_url  = 'http://' + webserver_address + '/servo/config'
 var neutral_url	  = 'http://' + webserver_address + '/servo/neutral'
 var step_url	  = 'http://' + webserver_address + '/servo/step'
-
+/*
 function loadSettings (url, ch, slider_name) {
     var PageUrl = url + '/' + ch;
     var data;
@@ -34,6 +34,7 @@ function loadSettings (url, ch, slider_name) {
 	}
     });
 }
+*/
 
 function loadRestfulData (url, ch, val) {
     var PageUrl = url + '/' + ch+'/' + val;
@@ -51,7 +52,7 @@ function loadRestfulData (url, ch, val) {
 }
 
 
-function resetPosition (url, ch) {
+function resetPosition (url, ch, fieldupdate) {
     var PageUrl = url + '/' + ch;
     //Set the content pane to a loading screen
     $('#content-pane').text('Resetting camera position');
@@ -62,22 +63,33 @@ function resetPosition (url, ch) {
         success:function (data) {
             //Once we receive the data, set it to the content pane.
             $('#content-pane').text("Channel: "+data["channel"]+" Position: "+data["pos"]);
+            $(fieldupdate).text(data["pos"]);
         }
     });
 }
 
 // Get min,max values with REST calls
-loadSettings (settings_url, x_channel, '#xpos');
-loadSettings (settings_url, y_channel, '#ypos');
+//loadSettings (settings_url, x_channel, '#xpos');
+//loadSettings (settings_url, y_channel, '#ypos');
 
 
 // Set neutral position
-loadSettings (settings_url, x_channel);
-loadSettings (settings_url, y_channel);
+resetPosition (neutral_url, x_channel, '#xposVal');
+resetPosition (neutral_url, y_channel, '#yposVal');
 
 
 
 $('#Y_camup').click(function() {
+    $.ajax({
+        url: step_url + '/' + y_channel +'/' + -step_val,
+        success: function(data) {
+            $('#yposVal').text(data["pos"]);
+        }
+    });
+
+});
+
+$('#Y_camdown').click(function() {
     $.ajax({
         url: step_url + '/' + y_channel +'/' + step_val,
         success: function(data) {
@@ -88,4 +100,22 @@ $('#Y_camup').click(function() {
 });
 
 
+$('#X_camleft').click(function() {
+    $.ajax({
+        url: step_url + '/' + x_channel +'/' + step_val,
+        success: function(data) {
+            $('#xposVal').text(data["pos"]);
+        }
+    });
 
+});
+
+$('#X_camright').click(function() {
+    $.ajax({
+        url: step_url + '/' + x_channel +'/' + -step_val,
+        success: function(data) {
+            $('#xposVal').text(data["pos"]);
+        }
+    });
+
+});
