@@ -1,4 +1,5 @@
 import os
+
 import inspect
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 parentdir = os.path.dirname(currentdir)
@@ -9,20 +10,31 @@ import web
 import json
 from servo import Servo
 
+# jpeg name written in /dev/shm/mjpeg by raspimjpeg
+raspicam_filename = 'cam.jpg'
+
 
 
 render = web.template.render('templates/')
 
 urls = (
+  # Several test interfaces (some of them will be removed at some point)
   '/', 'index',
   '/interface2', 'interface2',
   '/testpage', 'testpage',
+
+  # Servo controls
   '/servo/neutral/(.*)', 'Reset',
   '/servo/position/(.*)/(.*)', 'Position',
   '/servo/step/(.*)/(.*)', 'Step',
   '/servo/minposition/(.*)', 'SetMin',
   '/servo/maxposition/(.*)', 'SetMax',
   '/servo/config/(.*)', 'GetConf',
+
+  # Camera controls
+
+  # Camera jpeg streaming
+  '/camera/image', 'raspiimage',
 )
 
 
@@ -81,7 +93,12 @@ class interface2:
   
 class testpage:
     def GET(self):
-                return render.testpage()
+		return render.testpage()
+
+class raspiimage:
+    def GET(self):
+        web.header("Content-Type", "images/jpeg")
+        return open('mjpeg/%s'%raspicam_filename,"rb").read()	# link mjpeg -> /dev/shm/mjpeg
       
 if __name__ == "__main__": 
     app = web.application(urls, globals())

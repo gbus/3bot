@@ -6,7 +6,7 @@
 	<!-- Bootstrap -->
 	<link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 </head>
-<body>
+<body onload="setTimeout('init();', 100);">
 
 			
  <div class="container">
@@ -18,7 +18,7 @@
       <div class="panel-heading">3Bot camera <span class="badge">Offline</span></div>
 	<table class="table-condensed">
 	<tr>
-	  <td><img src="static/img/tv-test-screen.jpg" class="img-polaroid"></td>
+	  <td><img id="mjpeg_dest" class="img-polaroid"></td>
 	  <td><div class="btn-group-vertical">
 	    <a role="button" id="Y_camup" href="#" class="btn btn-default"><span class="glyphicon glyphicon-chevron-up"></span></a>
 	    <a href="#" class="btn btn-default disabled" role="button"><span id="yposVal"></span></a>
@@ -55,6 +55,7 @@
 <script type="text/javascript" src="http://ajax.cdnjs.com/ajax/libs/backbone.js/0.9.2/backbone-min.js"></script>
 
 <script type="text/javascript" src="static/js/viewer_interface.js"></script>
+<script type="text/javascript" src="static/js/video_panel.js"></script>
 
 <!--
 <script type="text/javascript" src="static/js/slider.js"></script>
