@@ -113,7 +113,11 @@ class raspiimage:
     def GET(self):
         web.header("Content-Type", "images/jpeg")
         return open('mjpeg/%s'%raspicam_filename,"rb").read()	# link mjpeg -> /dev/shm/mjpeg
-      
+
+
+app = web.application(urls, globals())
+
 if __name__ == "__main__": 
-    app = web.application(urls, globals())
-    app.run()   
+    app.run()
+
+application = app.wsgifunc()
