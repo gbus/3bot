@@ -7,8 +7,8 @@
 
 var webserver_address = location.host;
 
-var y_channel = 12
-var x_channel = 11
+var y_channel = 11
+var x_channel = 12
 var step_val  = 30
 
 var position_url  = 'http://' + webserver_address + '/servo/position'
@@ -79,28 +79,17 @@ resetPosition (neutral_url, y_channel, '#yposVal');
 
 
 
-$('#Y_camup').click(function() {
+$('#X_camup').click(function() {
     $.ajax({
-        url: step_url + '/' + y_channel +'/' + -step_val,
+        url: step_url + '/' + x_channel +'/' + -step_val,
         success: function(data) {
-            $('#yposVal').text(data["pos"]);
+            $('#xposVal').text(data["pos"]);
         }
     });
 
 });
 
-$('#Y_camdown').click(function() {
-    $.ajax({
-        url: step_url + '/' + y_channel +'/' + step_val,
-        success: function(data) {
-            $('#yposVal').text(data["pos"]);
-        }
-    });
-
-});
-
-
-$('#X_camleft').click(function() {
+$('#X_camdown').click(function() {
     $.ajax({
         url: step_url + '/' + x_channel +'/' + step_val,
         success: function(data) {
@@ -110,11 +99,22 @@ $('#X_camleft').click(function() {
 
 });
 
-$('#X_camright').click(function() {
+
+$('#Y_camleft').click(function() {
     $.ajax({
-        url: step_url + '/' + x_channel +'/' + -step_val,
+        url: step_url + '/' + y_channel +'/' + step_val,
         success: function(data) {
-            $('#xposVal').text(data["pos"]);
+            $('#yposVal').text(data["pos"]);
+        }
+    });
+
+});
+
+$('#Y_camright').click(function() {
+    $.ajax({
+        url: step_url + '/' + y_channel +'/' + -step_val,
+        success: function(data) {
+            $('#yposVal').text(data["pos"]);
         }
     });
 

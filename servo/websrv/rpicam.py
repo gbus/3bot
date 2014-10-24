@@ -38,10 +38,19 @@ urls = (
 )
 
 
-s = Servo()
+# Manage multiple servo instance (one for pan, one for tilt)
+servoList = dict()
+def servoChooser(channel):
+	if channel not in servoList:
+		servoList[channel] = Servo(channel)
+	return servoList[channel]
 
+
+
+# WebPy classes referenced by the URLs
 class Reset:
 	def GET(self, channel):
+		s = servoChooser(channel)
 		s.set_channel( int(channel) )
 		ret = s.reset_position()
 		web.header('Content-Type', 'application/json')
@@ -49,6 +58,7 @@ class Reset:
     	
 class Position:
 	def GET(self, channel, pos):
+		s = servoChooser(channel)
 		s.set_channel( int(channel) )
 		ret = s.set_position( int(pos) )
 		web.header('Content-Type', 'application/json')
@@ -56,6 +66,7 @@ class Position:
 
 class Step:
 	def GET(self, channel, step):
+		s = servoChooser(channel)
 		s.set_channel( int(channel) )
 		ret = s.step_position( int(step) )
 		web.header('Content-Type', 'application/json')
@@ -63,6 +74,7 @@ class Step:
     
 class SetMin:
 	def GET(self, channel):
+		s = servoChooser(channel)
 		s.set_channel( int(channel) )
 		ret = s.set_position( s.min_pos )
 		web.header('Content-Type', 'application/json')
@@ -71,6 +83,7 @@ class SetMin:
     
 class SetMax:
 	def GET(self, channel):
+		s = servoChooser(channel)
 		s.set_channel( int(channel) )
 		ret = s.set_position( s.max_pos )
 		web.header('Content-Type', 'application/json')
@@ -78,6 +91,7 @@ class SetMax:
 
 class GetConf:
 	def GET(self, channel):
+		s = servoChooser(channel)
 		s.set_channel( int(channel) )
 		ret = s.get_servo_conf()
 		web.header('Content-Type', 'application/json')

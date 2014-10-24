@@ -1,3 +1,6 @@
+# Servo library for Adafruit 16-Channel 12-bit PWM/Servo Driver
+# It abstracts some basic functionalities
+
 from libpwm.Adafruit_PWM_Servo_Driver import PWM
 from servo_config import channel_config
 

@@ -1,13 +1,5 @@
-# Servo config
-
-####
-# 0
-# 1
-# 2
-# ...
-# 11 pan 160-680
-# 12 tilt 220-480 (Range limited by camera shell)
-# ... 
+# Channel configuration for
+# Adafruit 16-Channel 12-bit PWM/Servo Driver
 
 
 
@@ -23,8 +15,13 @@ channel_config = {
 8: {"minp": 300, "maxp": 400 },
 9: {"minp": 300, "maxp": 400 },
 10: {"minp": 300, "maxp": 400 },
+
+# 11 pan 160-680
 11: {"minp": 160, "maxp": 680 },
+
+# 12 tilt 220-480 (Range limited by camera shell)
 12: {"minp": 220, "maxp": 480 },
+
 13: {"minp": 300, "maxp": 400 },
 14: {"minp": 300, "maxp": 400 },
 15: {"minp": 300, "maxp": 400 },
