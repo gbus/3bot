@@ -40,7 +40,8 @@ urls = (
 
 # Manage multiple servo instance (one for pan, one for tilt)
 servoList = dict()
-def servoChooser(channel):
+def servoChooser(ch):
+	channel = int(ch)
 	if channel not in servoList:
 		servoList[channel] = Servo(channel)
 	return servoList[channel]
