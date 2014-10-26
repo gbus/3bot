@@ -9,6 +9,7 @@ os.sys.path.insert(0,parentdir)
 import web
 import json
 from servo import Servo
+import rpicontrol
 
 # jpeg name written in /dev/shm/mjpeg by raspimjpeg
 raspicam_filename = 'cam.jpg'
@@ -31,7 +32,9 @@ urls = (
   '/servo/maxposition/(.*)', 'SetMax',
   '/servo/config/(.*)', 'GetConf',
 
-  # Camera controls
+  # raspimjpeg controls
+  '/raspimjpeg/status/(.*)', 'RaspiStatus',
+
 
   # Camera jpeg streaming
   '/camera/image', 'raspiimage',
@@ -115,6 +118,10 @@ class raspiimage:
         web.header("Content-Type", "images/jpeg")
         return open('mjpeg/%s'%raspicam_filename,"rb").read()	# link mjpeg -> /dev/shm/mjpeg
 
+
+class RaspiStatus:
+	def GET(self, last):
+	return raspimjpeg_status(last)
 
 app = web.application(urls, globals())
 
