@@ -9,7 +9,7 @@ os.sys.path.insert(0,parentdir)
 import web
 import json
 from servo import Servo
-import rpicontrol
+from rpicontrol import *
 
 # jpeg name written in /dev/shm/mjpeg by raspimjpeg
 raspicam_filename = 'cam.jpg'
@@ -121,7 +121,7 @@ class raspiimage:
 
 class RaspiStatus:
 	def GET(self, last):
-	return raspimjpeg_status(last)
+		return raspimjpeg_status(last)
 
 app = web.application(urls, globals())
 
