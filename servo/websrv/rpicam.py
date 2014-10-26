@@ -13,7 +13,8 @@ from rpicontrol import *
 
 # jpeg name written in /dev/shm/mjpeg by raspimjpeg
 raspicam_filename = 'cam.jpg'
-
+raspicam_status_file = "/home/pi/3bot/servo/websrv/static/raspicam/status_mjpeg"
+status_check_sec = 3
 
 
 render = web.template.render('templates/')
@@ -121,7 +122,7 @@ class raspiimage:
 
 class RaspiStatus:
 	def GET(self, last):
-		return raspimjpeg_status(last)
+		return raspimjpeg_status(raspicam_status_file, last, status_check_sec)
 
 app = web.application(urls, globals())
 

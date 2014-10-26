@@ -254,7 +254,7 @@ ajax_status.onreadystatechange = function() {
 }
 
 function reload_ajax (last) {
-  ajax_status.open("GET","status_mjpeg.php?last=" + last,true);
+  ajax_status.open("GET","/raspimjpeg/status/" + last,true);
   ajax_status.send();
 }
 
