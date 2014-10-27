@@ -1,6 +1,15 @@
 //
 // Interface
 //
+
+$(function () {
+    $('#mjpeg_dest').imgAreaSelect({
+        handles: true,
+        onSelectEnd: set_roi
+    });
+});
+
+
 function set_preset(value) {
 
   document.getElementById("video_width").value = value.substr(0, 4);
@@ -35,15 +44,16 @@ function set_ce() {
 
 }
 
-function set_roi() {
+function set_roi(selection) {
+  if (!selection.width || !selection.height)
+        return;
+//  while(document.getElementById("roi_x").value.length < 5) document.getElementById("roi_x").value = "0" + document.getElementById("roi_x").value;
+//  while(document.getElementById("roi_y").value.length < 5) document.getElementById("roi_y").value = "0" + document.getElementById("roi_y").value;
+//  while(document.getElementById("roi_w").value.length < 5) document.getElementById("roi_w").value = "0" + document.getElementById("roi_w").value;
+//  while(document.getElementById("roi_h").value.length < 5) document.getElementById("roi_h").value = "0" + document.getElementById("roi_h").value;
   
-  while(document.getElementById("roi_x").value.length < 5) document.getElementById("roi_x").value = "0" + document.getElementById("roi_x").value;
-  while(document.getElementById("roi_y").value.length < 5) document.getElementById("roi_y").value = "0" + document.getElementById("roi_y").value;
-  while(document.getElementById("roi_w").value.length < 5) document.getElementById("roi_w").value = "0" + document.getElementById("roi_w").value;
-  while(document.getElementById("roi_h").value.length < 5) document.getElementById("roi_h").value = "0" + document.getElementById("roi_h").value;
-  
-  send_cmd("ri", document.getElementById("roi_x").value + " " + document.getElementById("roi_y").value + " " + document.getElementById("roi_w").value + " " + document.getElementById("roi_h").value);
-
+//  send_cmd("ri", document.getElementById("roi_x").value + " " + document.getElementById("roi_y").value + " " + document.getElementById("roi_w").value + " " + document.getElementById("roi_h").value);
+  send_cmd("ri", selection.x1 + " " + selection.y1 + " " + selection.width + " " + selection.height);
 }
 
 //
