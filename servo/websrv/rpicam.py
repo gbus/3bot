@@ -15,6 +15,7 @@ from rpicontrol import *
 raspicam_filename = 'cam.jpg'
 raspicam_status_file = "/home/pi/3bot/servo/websrv/static/raspicam/status_mjpeg"
 status_check_sec = 3
+raspififo = "/var/www/rcwi/FIFO"
 
 
 render = web.template.render('templates/')
@@ -34,7 +35,8 @@ urls = (
   '/servo/config/(.*)', 'GetConf',
 
   # raspimjpeg controls
-  '/raspimjpeg/status/(.*)', 'RaspiStatus',
+  '/raspimjpeg/status/(.*)', 'RaspicamStatus',
+  '/raspimjpeg/(.*)/(.*)', 'RaspicamCmd',
 
 
   # Camera jpeg streaming
@@ -120,9 +122,13 @@ class raspiimage:
         return open('mjpeg/%s'%raspicam_filename,"rb").read()	# link mjpeg -> /dev/shm/mjpeg
 
 
-class RaspiStatus:
+class RaspicamStatus:
 	def GET(self, last):
 		return raspimjpeg_status(raspicam_status_file, last, status_check_sec)
+
+class RaspicamCmd:
+	def GET(self, cmd, value=''):
+		return raspimjpeg_cmd(raspififo, cmd, value)
 
 app = web.application(urls, globals())
 

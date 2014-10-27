@@ -13,9 +13,15 @@
 
 
 
-
+      <!--Viewer panel-->
       <div class="panel panel-primary">
       <div class="panel-heading">3Bot camera <span class="badge">Offline</span></div>
+
+      <!-- Stream viewer and side control panel -->
+      <table class="table-condensed">
+      <tr><td>
+
+	<!-- Stream viewer -->
 	<table class="table-condensed">
 	<tr>
 	  <!--VIEWER-->
@@ -37,11 +43,80 @@
 	        <a role="button" id="Y_camright" href="#" class="btn btn-default"><span class="glyphicon glyphicon-chevron-right"></span></a>
             </div>
           </td>
-
-
 	</table>
-      </div>
+      </td>
 
+      
+      <td>
+	<!-- Side control panel -->
+	<table class="table-condensed">
+	<tr>
+	  <!--Video, image, motion detection bar-->
+	  <td>
+	<div class="btn-group">
+	        <a role="button" id="video_button" data-toggle="tooltip" title="Video recording" href="#" class="btn btn-default"><span class="glyphicon glyphicon-film"></span></a>
+	        <a role="button" id="image_button" data-toggle="tooltip" title="Snapshot" href="#" class="btn btn-default"><span class="glyphicon glyphicon-camera"></span></a>
+	        <a role="button" id="md_button" data-toggle="tooltip" title="Motion detection" href="#" class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span></a>
+	        <a role="button" id="halt_button" data-toggle="tooltip" title="Halt" href="#" class="btn btn-default"><span class="glyphicon glyphicon-pause"></span></a>
+            </div>
+          </td>
+
+	<!-- Timelapse input button -->
+        <tr>
+	  <td>
+
+    <div class="input-group">
+      <input type="text" size=4 id="tl_interval" value="3" data-toggle="tooltip" title="seconds 0.1...3200" class="form-control">
+      <span class="input-group-btn">
+        <a role="button" id="timelapse_button" data-toggle="tooltip" title="Timelapse" href="#" class="btn btn-default"><span class="glyphicon glyphicon-time"></span></a>
+      </span>
+    </div><!-- /input-group -->
+	        
+          </td>
+	</tr>
+
+        <tr>
+          <td>
+          <div class="input-group">
+          <input type="text" size=4 id="shutter_speed" value="0" data-toggle="tooltip" title="Shutter speed (0...330000), default 0" class="form-control">
+          <span class="input-group-btn">
+            <a role="button"  data-toggle="tooltip" title="Shutter speed" onclick="send_cmd('ss', document.getElementById('shutter_speed').value)" href="#" class="btn btn-default">Shutter <span class="glyphicon glyphicon-cog"></span></a>
+          </span>
+          </div><!-- /input-group -->
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+          <div class="input-group">
+          <input type="text" size=4 id="iso" value="0" data-toggle="tooltip" title="ISO (100...800), default 0" class="form-control">
+          <span class="input-group-btn">
+            <a role="button"  data-toggle="tooltip" title="ISO" onclick="send_cmd('is', document.getElementById('iso').value)" href="#" class="btn btn-default">ISO <span class="glyphicon glyphicon-cog"></span></a>
+          </span>
+          </div><!-- /input-group -->
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+          <div class="input-group">
+          <input type="text" size=4 id="quality" value="85" data-toggle="tooltip" title="Image quality (0...100), default 85" class="form-control">
+          <span class="input-group-btn">
+            <a role="button"  data-toggle="tooltip" title="Quality" onclick="send_cmd('qu', document.getElementById('quality').value)" href="#" class="btn btn-default">Quality <span class="glyphicon glyphicon-cog"></span></a>
+          </span>
+          </div><!-- /input-group -->
+          </td>
+        </tr>
+
+
+        </tr>
+        </table>
+      </td>
+      </tr>
+      </table>
+
+
+      </div>
 
  </div> <!--container-->
 
