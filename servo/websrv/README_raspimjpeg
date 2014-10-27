@@ -1,0 +1,31 @@
+Cmd	Description	Type	Value	Notes
+
+ca	capture video	bool	0/1
+im	image capture	bool	0/1
+tl	timelapse	num	#secs
+px	set res/fps	string	""	pattern "video_width video_height video_fps MP4Box_fps image_width image_height"
+an	set annotation	string	"text"
+ab	set ann. back	bool	0/1
+sh	sharpness	num	#	(-100 to 100)
+co	contrast	num	#	(-100 to 100)
+br	brightness	num	#	(-100 to 100)
+sa	saturation	num	#	(-100 to 100)
+is	set ISO value	num	#	(100 to 800)
+vs	video stabil.	bool	0/1
+rl	raw layer	bool	0/1
+ec	exposure comp.	bool	#	-10 to +10, default is 0
+em	exposure mode	string	""	[auto|night|nightpreview|backlight|spotlight|sports|snow|beach|verylong|fixedfps|antishake|fireworks]
+wb	white balance	string	""	[off|auto|sun|cloud|shade|tungsten|fluorescent|incandescent|flash|horizon]
+mm	metering mode	string	""	[average|spot|backlit|matrix]
+ie	image effect	string	""	[negative|solarise|posterize|whiteboard|blackboard|sketch|denoise|emboss|oilpaint|hatch|gpen|pastel|watercolour|film|blur|saturation]
+ce	colour effect	string	""	pattern "0/1 u v" where 0/1: enable/dis, u,v=0-255
+ro	rotation	num	#	(0-359) degrees
+fl	flip image	num	#	[0|1|2|n]	(0: hf/vf=0, 1: hf=1/vf=0, 2: hf=0/vf=1, any: hf=1/vf=1)
+ri	sensor region	string	""	pattern "x y w h"
+ss	shutter speed	num	#
+qu	image quality	num	%
+bi	stream bitrate	num	#
+ru	stream halt	bool	0/1
+md	motion detect.	bool	0/1
+
+

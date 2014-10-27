@@ -51,29 +51,36 @@
 	<!-- Side control panel -->
 	<table class="table-condensed">
 	<tr>
-	  <!--Video, image, motion detection bar-->
-	  <td>
-	<div class="btn-group">
-	        <a role="button" id="video_button" data-toggle="tooltip" title="Video recording" href="#" class="btn btn-default"><span class="glyphicon glyphicon-film"></span></a>
-	        <a role="button" id="image_button" data-toggle="tooltip" title="Snapshot" href="#" class="btn btn-default"><span class="glyphicon glyphicon-camera"></span></a>
-	        <a role="button" id="md_button" data-toggle="tooltip" title="Motion detection" href="#" class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span></a>
-	        <a role="button" id="halt_button" data-toggle="tooltip" title="Halt" href="#" class="btn btn-default"><span class="glyphicon glyphicon-pause"></span></a>
-            </div>
-          </td>
-
-	<!-- Timelapse input button -->
-        <tr>
 	  <td>
 
+        <!-- Camera modes subpanel -->
+	<div class="btn-toolbar" role="toolbar">
+          <!--Video, image, motion detection bar-->
+	  <div class="btn-group">
+	        <button type="submit" id="video_button" data-toggle="tooltip" title="Video recording" class="btn btn-default" disabled><span class="glyphicon glyphicon-film"></span></button>
+
+	        <button type="submit" id="image_button" data-toggle="tooltip" title="Snapshot" class="btn btn-default" disabled><span class="glyphicon glyphicon-camera"></span></button>
+	        <button type="submit" id="md_button" data-toggle="tooltip" title="Motion detection" class="btn btn-default" disabled><span class="glyphicon glyphicon-eye-open"></span></button>
+	        <button type="submit" id="halt_button" data-toggle="tooltip" title="Halt" class="btn btn-default" disabled><span class="glyphicon glyphicon-pause"></span></button>
+          </div>
+
+	  <!-- Timelapse bar -->
+          <div class="btn-group">
     <div class="input-group">
       <input type="text" size=4 id="tl_interval" value="3" data-toggle="tooltip" title="seconds 0.1...3200" class="form-control">
       <span class="input-group-btn">
-        <a role="button" id="timelapse_button" data-toggle="tooltip" title="Timelapse" href="#" class="btn btn-default"><span class="glyphicon glyphicon-time"></span></a>
+        <button type="submit" id="timelapse_button" data-toggle="tooltip" title="Timelapse" class="btn btn-default" disabled><span class="glyphicon glyphicon-time"></span></button>
       </span>
     </div><!-- /input-group -->
-	        
+          </div> 
+
+        </div> <!-- Toolbar end -->
           </td>
 	</tr>
+
+
+
+
 
         <tr>
           <td>
