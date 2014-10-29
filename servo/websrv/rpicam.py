@@ -15,7 +15,7 @@ from rpicontrol import *
 raspicam_filename = 'cam.jpg'
 raspicam_status_file = "/home/pi/3bot/servo/websrv/static/raspicam/status_mjpeg"
 status_check_sec = 3
-raspififo = "/var/www/rcwi/FIFO"
+raspififo = "/var/run/raspimjpeg/FIFO"
 
 
 render = web.template.render('templates/')

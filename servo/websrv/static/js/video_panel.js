@@ -2,7 +2,7 @@
 // Interface
 //
 
-$(function () {
+$(document).ready(function () {
     $('#mjpeg_dest').imgAreaSelect({
         handles: true,
         onSelectEnd: set_roi
@@ -47,13 +47,14 @@ function set_ce() {
 function set_roi(selection) {
   if (!selection.width || !selection.height)
         return;
-//  while(document.getElementById("roi_x").value.length < 5) document.getElementById("roi_x").value = "0" + document.getElementById("roi_x").value;
-//  while(document.getElementById("roi_y").value.length < 5) document.getElementById("roi_y").value = "0" + document.getElementById("roi_y").value;
-//  while(document.getElementById("roi_w").value.length < 5) document.getElementById("roi_w").value = "0" + document.getElementById("roi_w").value;
-//  while(document.getElementById("roi_h").value.length < 5) document.getElementById("roi_h").value = "0" + document.getElementById("roi_h").value;
+  while(selection.x1.length < 5) selection.x1 = "0" + selection.x1;
+  while(selection.y1.length < 5) selection.y1 = "0" + selection.y1;
+  while(selection.width.length < 5) selection.width = "0" + selection.width;
+  while(selection.height.length < 5) selection.height = "0" + selection.height;
+
   
 //  send_cmd("ri", document.getElementById("roi_x").value + " " + document.getElementById("roi_y").value + " " + document.getElementById("roi_w").value + " " + document.getElementById("roi_h").value);
-  send_cmd("ri", selection.x1 + " " + selection.y1 + " " + selection.width + " " + selection.height);
+  send_cmd("ri",  selection.x1 + " " + selection.y1 + " " + selection.width + " " + selection.height);
 }
 
 //
@@ -188,19 +189,19 @@ ajax_status.onreadystatechange = function() {
       document.getElementById("halt_button").onclick = function() {};
     }
     else if(ajax_status.responseText == "image") {
-      document.getElementById("video_button").disabled = disabled;
+      document.getElementById("video_button").disabled = true;
       document.getElementById("video_button").value = "record video start";
       document.getElementById("video_button").onclick = function() {};
-      document.getElementById("image_button").disabled = disabled;
+      document.getElementById("image_button").disabled = true;
       document.getElementById("image_button").value = "recording image";
       document.getElementById("image_button").onclick = function() {};
-      document.getElementById("timelapse_button").disabled = disabled;
+      document.getElementById("timelapse_button").disabled = true;
       document.getElementById("timelapse_button").value = "timelapse start";
       document.getElementById("timelapse_button").onclick = function() {};
-      document.getElementById("md_button").disabled = disabled;
+      document.getElementById("md_button").disabled = true;
       document.getElementById("md_button").value = "motion detection start";
       document.getElementById("md_button").onclick = function() {};
-      document.getElementById("halt_button").disabled = disabled;
+      document.getElementById("halt_button").disabled = true;
       document.getElementById("halt_button").value = "stop camera";
       document.getElementById("halt_button").onclick = function() {};
     }

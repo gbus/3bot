@@ -62,13 +62,13 @@
 
 	        <button type="submit" id="image_button" data-toggle="tooltip" title="Snapshot" class="btn btn-default" disabled><span class="glyphicon glyphicon-camera"></span></button>
 	        <button type="submit" id="md_button" data-toggle="tooltip" title="Motion detection" class="btn btn-default" disabled><span class="glyphicon glyphicon-eye-open"></span></button>
-	        <button type="submit" id="halt_button" data-toggle="tooltip" title="Halt" class="btn btn-default" disabled><span class="glyphicon glyphicon-pause"></span></button>
+	        <button type="submit" id="halt_button" data-toggle="tooltip" title="Pause stream" class="btn btn-default" disabled><span class="glyphicon glyphicon-pause"></span></button>
           </div>
 
 	  <!-- Timelapse bar -->
           <div class="btn-group">
     <div class="input-group">
-      <input type="text" size=4 id="tl_interval" value="3" data-toggle="tooltip" title="seconds 0.1...3200" class="form-control">
+      <input type="text" size=4 id="tl_interval" value="3" data-toggle="tooltip" title="timelapse interval in sec (0-3200)" class="form-control">
       <span class="input-group-btn">
         <button type="submit" id="timelapse_button" data-toggle="tooltip" title="Timelapse" class="btn btn-default" disabled><span class="glyphicon glyphicon-time"></span></button>
       </span>
@@ -143,7 +143,7 @@
 
 <script type="text/javascript" src="static/js/viewer_interface.js"></script>
 <script type="text/javascript" src="static/js/video_panel.js"></script>
-<script type="text/javascript" src="static/imgareaselect/js/jquery.imgareaselect.min.js"></script>
+<script type="text/javascript" src="static/imgareaselect/js/jquery.imgareaselect.js"></script>
 
 <!--
 <script type="text/javascript" src="static/js/slider.js"></script>
