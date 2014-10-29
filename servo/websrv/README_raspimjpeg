@@ -1,20 +1,34 @@
+Status:
+
+ready     --> MJPEG is streaming, not capturing
+video     --> MJPEG is streaming and video is capturing
+boxing    --> MJPEG is streaming and video is packed into mp4
+image     --> MJPEG is streaming and image is capturing
+timelapse --> MJPEG is streaming and timelapse is active
+halted    --> RaspiMJPEG is idle
+md_ready  --> See 'ready', motion is detection active
+md_video  --> See 'video', motion is detection active
+md_boxing --> See 'boxing', motion is detection active
+errror    --> An error occured and the application terminated
+
+
 Cmd	Description	Type	Value	Notes
 
 ca	capture video	bool	0/1
-im	image capture	bool	0/1
-tl	timelapse	num	#secs
-px	set res/fps	string	""	pattern "video_width video_height video_fps MP4Box_fps image_width image_height"
+im	image capture	NA		
+tl	timelapse	num	[0|#]	parameter is time between images in 1/10 seconds, 0 stop timelapse
+px	set res/fps	string	"AAAA BBBB CC DD EEEE FFFF"	video = AxB px, C fps, boxed with D fps, image = ExF px
 an	set annotation	string	"text"
 ab	set ann. back	bool	0/1
-sh	sharpness	num	#	(-100 to 100)
-co	contrast	num	#	(-100 to 100)
-br	brightness	num	#	(-100 to 100)
-sa	saturation	num	#	(-100 to 100)
-is	set ISO value	num	#	(100 to 800)
+sh	sharpness	num	#	(range: [-100;100]; default: 0)
+co	contrast	num	#	(range: [-100;100]; default: 0)
+br	brightness	num	#	(range: [0;100]; default: 50)
+sa	saturation	num	#	(range: [-100;100]; default: 0)
+is	set ISO value	num	#	(range: [100;800]; default: 0=auto)
 vs	video stabil.	bool	0/1
 rl	raw layer	bool	0/1
-ec	exposure comp.	bool	#	-10 to +10, default is 0
-em	exposure mode	string	""	[auto|night|nightpreview|backlight|spotlight|sports|snow|beach|verylong|fixedfps|antishake|fireworks]
+ec	exposure comp.	bool	#	(range: [-10;10]; default: 0)
+em	exposure mode	string	""	[off|auto|night|nightpreview|backlight|spotlight|sports|snow|beach|verylong|fixedfps|antishake|fireworks]
 wb	white balance	string	""	[off|auto|sun|cloud|shade|tungsten|fluorescent|incandescent|flash|horizon]
 mm	metering mode	string	""	[average|spot|backlit|matrix]
 ie	image effect	string	""	[negative|solarise|posterize|whiteboard|blackboard|sketch|denoise|emboss|oilpaint|hatch|gpen|pastel|watercolour|film|blur|saturation]
