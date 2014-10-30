@@ -35,7 +35,7 @@ ie	image effect	string	""	[negative|solarise|posterize|whiteboard|blackboard|ske
 ce	colour effect	string	""	pattern "0/1 u v" where 0/1: enable/dis, u,v=0-255
 ro	rotation	num	#	(0-359) degrees
 fl	flip image	num	#	[0|1|2|n]	(0: hf/vf=0, 1: hf=1/vf=0, 2: hf=0/vf=1, any: hf=1/vf=1)
-ri	sensor region	string	""	pattern "x y w h"
+ri	sensor region	string	AAAAA BBBBB CCCCC DDDDD	x=A, y=B, w=C, h=D
 ss	shutter speed	num	#
 qu	image quality	num	%
 bi	stream bitrate	num	#
