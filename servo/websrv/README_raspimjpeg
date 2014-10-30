@@ -43,3 +43,12 @@ ru	stream halt	bool	0/1
 md	motion detect.	bool	0/1
 
 
+
+	 	Aspect 
+Resolution	Ratio 	Framerates 	Video 	Image 	FoV
+2592x1944 	4:3 	1-15fps 	x 	x 	Full
+1296x972 	4:3 	1-42fps 	x 	  	Full
+1296x730 	16:9 	1-49fps 	x 	  	Full
+640x480 	4:3 	42.1-60fps 	x 	  	Full
+640x480 	4:3 	60.1-90fps 	x 	  	Full
+1920x1080 	16:9 	1-30fps 	x 	  	Partial

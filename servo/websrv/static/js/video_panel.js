@@ -9,6 +9,15 @@ $(document).ready(function () {
     });
 });
 
+$(document).ready(function(){
+	$("#regionselAlert").bind('closed.bs.alert', reset_roi );
+}); 
+
+
+viewerAlert = function() {}
+viewerAlert.warning = function(alertType, alertContent) {
+	$('#viewerNotifications').html('<div id=regionselAlert class=alert alert-' + alertType + '> ' + alertContent + ' </div>')
+}
 
 function set_preset(value) {
 
@@ -44,18 +53,36 @@ function set_ce() {
 
 }
 
-function set_roi(selection) {
+function set_roi(img,selection) {
   if (!selection.width || !selection.height)
         return;
-  while(selection.x1.length < 5) selection.x1 = "0" + selection.x1;
-  while(selection.y1.length < 5) selection.y1 = "0" + selection.y1;
-  while(selection.width.length < 5) selection.width = "0" + selection.width;
-  while(selection.height.length < 5) selection.height = "0" + selection.height;
-
+  // x,y,w,h rescaled on a 0-65535 range
+  var xr = Math.round(selection.x1/img.clientWidth*65535);
+  var yr = Math.round(selection.y1/img.clientHeight*65535);
+  var wr = Math.round(selection.width/img.clientWidth*65535);
+  var hr = Math.round(selection.height/img.clientHeight*65535);
   
-//  send_cmd("ri", document.getElementById("roi_x").value + " " + document.getElementById("roi_y").value + " " + document.getElementById("roi_w").value + " " + document.getElementById("roi_h").value);
-  send_cmd("ri",  selection.x1 + " " + selection.y1 + " " + selection.width + " " + selection.height);
+  // 0 padded to 5 chars
+  var xrstr = xr.toString();
+  var yrstr = yr.toString();
+  var wrstr = wr.toString();
+  var hrstr = hr.toString();
+  while(xrstr.length < 5) xrstr = "0" + xrstr;
+  while(yrstr.length < 5) yrstr = "0" + yrstr;
+  while(wrstr.length < 5) wrstr = "0" + wrstr;
+  while(hrstr.length < 5) hrstr = "0" + hrstr;
+
+  // Trigger an info alert that shows the selected range in pixels
+  viewerAlert.warning('info', '<button type=button class=close data-dismiss=alert><span class=glyphicon glyphicon-retweet> Reset</button> Region selected from ('+selection.x1+','+selection.y1+') to ('+selection.x2+','+selection.y2+').');
+
+  send_cmd("ri", xrstr + " " + yrstr + " " + wrstr + " " + hrstr );
 }
+
+function reset_roi(){
+	send_cmd("ri", "0 0 65535 65535" );
+    }
+
+
 
 //
 // Shutdown
