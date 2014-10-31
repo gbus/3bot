@@ -3,9 +3,9 @@
 <head>
 	<title>PT controller</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="static/imgareaselect/css/imgareaselect-default.css" rel="stylesheet" media="screen">
 	<!-- Bootstrap -->
 	<link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-	<link href="static/imgareaselect/css/imgareaselect-animated.css" rel="stylesheet" media="screen">
 </head>
 <body onload="setTimeout('init();', 100);">
 
@@ -28,11 +28,12 @@
 	<!-- Viewer notification area -->
 	<tr><td>
 	    <div id = "viewerNotifications"></div>
+
 	</td></tr>
 
 	<tr>
 	  <!--VIEWER-->
-	  <td><img id="mjpeg_dest" class="img-polaroid"></td>
+	  <td><img id="mjpeg_dest"></td>
 
 	  <!--Side buttons (X axis)-->
 	  <td><div class="btn-group-vertical">

@@ -3,21 +3,23 @@
 //
 
 $(document).ready(function () {
-    $('#mjpeg_dest').imgAreaSelect({
+    $('img#mjpeg_dest').imgAreaSelect({
+	autoHide: true,
         handles: true,
+	disable: false,
         onSelectEnd: set_roi
     });
 });
 
-$(document).ready(function(){
-	$("#regionselAlert").bind('closed.bs.alert', reset_roi );
-}); 
+
 
 
 viewerAlert = function() {}
 viewerAlert.warning = function(alertType, alertContent) {
-	$('#viewerNotifications').html('<div id=regionselAlert class=alert alert-' + alertType + '> ' + alertContent + ' </div>')
+	$('#viewerNotifications').append('<div id="regionselAlert" class="alert alert-' + alertType + '"> ' + alertContent + ' </div>')
+
 }
+
 
 function set_preset(value) {
 
@@ -73,15 +75,17 @@ function set_roi(img,selection) {
   while(hrstr.length < 5) hrstr = "0" + hrstr;
 
   // Trigger an info alert that shows the selected range in pixels
-  viewerAlert.warning('info', '<button type=button class=close data-dismiss=alert><span class=glyphicon glyphicon-retweet> Reset</button> Region selected from ('+selection.x1+','+selection.y1+') to ('+selection.x2+','+selection.y2+').');
+  viewerAlert.warning('info', '<a href="#" class="close" data-dismiss="alert"><span class="glyphicon glyphicon-retweet"></a> <strong>Region defined</strong> ('+selection.x1+','+selection.y1+') to ('+selection.x2+','+selection.y2+').');
+
+    $('img#mjpeg_dest').imgAreaSelect({	disable: true });
+
+	$("#regionselAlert").bind('closed.bs.alert', function(){
+        send_cmd("ri", "00000 00000 65535 65535" );
+    	$('img#mjpeg_dest').imgAreaSelect({	disable: false });
+    });
 
   send_cmd("ri", xrstr + " " + yrstr + " " + wrstr + " " + hrstr );
 }
-
-function reset_roi(){
-	send_cmd("ri", "0 0 65535 65535" );
-    }
-
 
 
 //
