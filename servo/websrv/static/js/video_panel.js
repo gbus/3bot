@@ -2,6 +2,14 @@
 // Interface
 //
 
+
+var imgw = 2592;
+var imgh = 1944;
+var vidw = 1920;
+var vidh = 1080;
+var vfps = 25;	// video fps
+var bfps = 25;	// boxed video fps
+
 $(document).ready(function () {
     $('img#mjpeg_dest').imgAreaSelect({
 	autoHide: true,
@@ -33,6 +41,7 @@ function set_preset(value) {
 
 }
 
+/*
 function set_res() {
   
   while(document.getElementById("video_width").value.length < 4) document.getElementById("video_width").value = "0" + document.getElementById("video_width").value;
@@ -44,6 +53,47 @@ function set_res() {
   
   send_cmd("px", document.getElementById("video_width").value + " " + document.getElementById("video_height").value + " " + document.getElementById("video_fps").value + " " + document.getElementById("MP4Box_fps").value + " " + document.getElementById("image_width").value + " " + document.getElementById("image_height").value);
 
+}
+*/
+
+function set_res() {
+  var imgw0 = imgw;
+  var imgh0 = imgh;
+  var vidw0 = vidw;
+  var vidh0 = vidh;
+  var vfps0 = vfps;
+  var bfps0 = bfps;
+
+  while(imgw0.length < 4) imgw0 = "0" + imgw0;
+  while(imgh0.length < 4) imgh0 = "0" + imgh0;
+  while(vidw0.length < 4) vidw0 = "0" + vidw0;
+  while(vidh0.length < 4) vidh0 = "0" + vidh0;
+  while(vfps0.length < 2) vfps0 = "0" + vfps0;
+  while(bfps0.length < 2) bfps0 = "0" + bfps0;
+
+  send_cmd("px", vidw0 + " " + vidh0 + " " + vfps0 + " " + bfps0 + " " + imgw0 + " " + imgh0);
+}
+function set_video_res(vw, vh) {
+  vidw = vw;
+  vidh = vh;
+  set_res();
+}
+
+
+function set_vfps_res(vf) {
+  vfps = vf;
+  set_res();
+}
+
+function set_bfps_res(bf) {
+  bfps = bf;
+  set_res();
+}
+
+function set_image_res(iw, ih) { 
+  imgw = iw;
+  imgh = vh;  
+  set_res();
 }
 
 function set_ce() {

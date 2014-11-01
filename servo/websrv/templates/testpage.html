@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>PT controller</title>
+	<title>Camera</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="static/imgareaselect/css/imgareaselect-default.css" rel="stylesheet" media="screen">
 	<!-- Bootstrap -->
@@ -123,8 +123,29 @@
           </td>
         </tr>
 
+	<!-- Resolution button -->
+        <tr>
+          <td>
+          <div class="input-group">
+  <span class="input-group-btn">
+    <!-- Button and dropdown menu -->
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Set</button>
+  </span>
+        <ul class="dropdown-menu" role="menu">
+          <li><a href="#">2592x1944</a></li>
+          <li><a href="#">1296x972</a></li>
+          <li><a href="#">640x480</a></li>
+          <li class="divider">16:9</li>
+          <li><a href="#">1920x1080</a></li>
+          <li><a href="#">1296x730</a></li>
+        </ul>
+  <input type="text" id="vw" class="form-control" value="1920" size="4">
+  <input type="text" id="vh" class="form-control" value="1080" size="4">
 
+          </div>
+	  </td>
         </tr>
+
         </table>
       </td>
       </tr>
