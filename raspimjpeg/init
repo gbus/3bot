@@ -1,0 +1,6 @@
+#!/bin/sh
+
+sudo mkdir /dev/shm/mjpeg; sudo mkdir -p /var/run/raspimjpeg; sudo mknod /var/run/raspimjpeg/FIFO p; sudo chmod 666 /var/run/raspimjpeg/FIFO
+
+
+sudo raspimjpeg

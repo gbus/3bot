@@ -16,7 +16,7 @@
 
       <!--Viewer panel-->
       <div class="panel panel-primary">
-      <div class="panel-heading">3Bot camera <span class="badge">Offline</span></div>
+      <div class="panel-heading">Camera viewer</div>
 
       <!-- Stream viewer and side control panel -->
       <table class="table-condensed">
@@ -89,7 +89,7 @@
 
 
 
-
+<!--
         <tr>
           <td>
           <div class="input-group">
@@ -97,7 +97,8 @@
           <span class="input-group-btn">
             <a role="button"  data-toggle="tooltip" title="Shutter speed" onclick="send_cmd('ss', document.getElementById('shutter_speed').value)" href="#" class="btn btn-default">Shutter <span class="glyphicon glyphicon-cog"></span></a>
           </span>
-          </div><!-- /input-group -->
+          </div>
+
           </td>
         </tr>
 
@@ -108,7 +109,7 @@
           <span class="input-group-btn">
             <a role="button"  data-toggle="tooltip" title="ISO" onclick="send_cmd('is', document.getElementById('iso').value)" href="#" class="btn btn-default">ISO <span class="glyphicon glyphicon-cog"></span></a>
           </span>
-          </div><!-- /input-group -->
+          </div>
           </td>
         </tr>
 
@@ -119,32 +120,110 @@
           <span class="input-group-btn">
             <a role="button"  data-toggle="tooltip" title="Quality" onclick="send_cmd('qu', document.getElementById('quality').value)" href="#" class="btn btn-default">Quality <span class="glyphicon glyphicon-cog"></span></a>
           </span>
-          </div><!-- /input-group -->
+          </div>
+          </td>
+        </tr>
+-->
+
+
+	<!-- Resolution controls -->
+        <tr>
+          <td>
+
+		<!-- Video resolution control -->
+		<div class="well well-sm">
+			<form class="form-inline" role="form">
+			<span class="glyphicon glyphicon-film"></span>
+			  <!-- Width x Height input felds -->
+			  <div class="form-group">
+			    <input type="text" size="4" class="form-control" id="vwidth" placeholder="Width" data-toggle="tooltip" title="Video width">
+			    <label >X</label>
+			    <input type="text" size="4" class="form-control" id="vheight" placeholder="Height" data-toggle="tooltip" title="Video height">
+			  </div>
+
+
+			  <!-- Apply button and preset selection -->
+		  	  <div class="btn-group">
+			  <button id="applyres_video" type="button" class="btn btn-default"><span class="glyphicon glyphicon-ok"></span></button>
+			  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+			    <span class="caret"></span>
+			  </button>
+			  <ul id="load_predefined_video"  class="dropdown-menu" role="menu">
+				  <li><a href="#">2592x1944</a></li>
+				  <li><a href="#">1296x972</a></li>
+				  <li><a href="#">640x480</a></li>
+				  <li><a href="#">320x240</a></li>
+				  <li class="divider"></li>
+				  <li><a href="#">1920x1080</a></li>
+				  <li><a href="#">1296x730</a></li>
+			  </ul>
+			  </div>
+			</form>
+		</div>
+
+
+		<!-- fps control -->
+		<div class="well well-sm">
+			<form class="form-inline" role="form">
+			<span class="glyphicon glyphicon-film"></span>
+			  <!-- fps and fps boxed input felds -->
+			  <div class="form-group">
+			    <input type="text" size="2" class="form-control" id="vfps" placeholder="fps" data-toggle="tooltip" title="Video fps">
+			    <input type="text" size="2" class="form-control" id="bvfps" placeholder="fps" data-toggle="tooltip" title="Boxed video fps">
+			  </div>
+
+			  <!-- Apply fps button -->
+			  <button id="applyfps" type="button" class="btn btn-default"><span class="glyphicon glyphicon-ok"></span></button>
+			</form>
+		</div>
+
           </td>
         </tr>
 
 	<!-- Resolution button -->
         <tr>
           <td>
-          <div class="input-group">
-  <span class="input-group-btn">
-    <!-- Button and dropdown menu -->
-        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Set</button>
-  </span>
-        <ul class="dropdown-menu" role="menu">
-          <li><a href="#">2592x1944</a></li>
-          <li><a href="#">1296x972</a></li>
-          <li><a href="#">640x480</a></li>
-          <li class="divider">16:9</li>
-          <li><a href="#">1920x1080</a></li>
-          <li><a href="#">1296x730</a></li>
-        </ul>
-  <input type="text" id="vw" class="form-control" value="1920" size="4">
-  <input type="text" id="vh" class="form-control" value="1080" size="4">
+		<!-- Picture resolution control -->
+		<div class="well well-sm">
+			<form class="form-inline" role="form">
+			<span class="glyphicon glyphicon-camera"></span>
+			  <!-- Width x Height input felds -->
+			  <div class="form-group">
+			    <input type="text" size="4" class="form-control" id="iwidth" placeholder="Width"  data-toggle="tooltip" title="Image width">
+			    <label >X</label>
+			    <input type="text" size="4" class="form-control" id="iheight" placeholder="Height" data-toggle="tooltip" title="Image height">
+			  </div>
 
-          </div>
+
+			  <!-- Apply button and preset selection -->
+		  	  <div class="btn-group">
+			  <button id="applyres_image" type="button" class="btn btn-default"><span class="glyphicon glyphicon-ok"></span></button>
+			  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+			    <span class="caret"></span>
+			  </button>
+			  <ul id="load_predefined_image"  class="dropdown-menu" role="menu">
+				  <li><a href="#">2592x1944</a></li>
+				  <li><a href="#">1296x972</a></li>
+				  <li><a href="#">640x480</a></li>
+				  <li><a href="#">320x240</a></li>
+				  <li class="divider"></li>
+				  <li><a href="#">1920x1080</a></li>
+				  <li><a href="#">1296x730</a></li>
+			  </ul>
+			  </div>
+			</form>
+		</div>
+
+
+
+
+
 	  </td>
         </tr>
+
+
+
+
 
         </table>
       </td>

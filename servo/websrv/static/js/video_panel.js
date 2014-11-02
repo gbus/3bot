@@ -8,7 +8,7 @@ var imgh = 1944;
 var vidw = 1920;
 var vidh = 1080;
 var vfps = 25;	// video fps
-var bfps = 25;	// boxed video fps
+var bfps = 25;	// boxed fps
 
 $(document).ready(function () {
     $('img#mjpeg_dest').imgAreaSelect({
@@ -73,28 +73,56 @@ function set_res() {
 
   send_cmd("px", vidw0 + " " + vidh0 + " " + vfps0 + " " + bfps0 + " " + imgw0 + " " + imgh0);
 }
-function set_video_res(vw, vh) {
-  vidw = vw;
-  vidh = vh;
-  set_res();
-}
 
 
-function set_vfps_res(vf) {
-  vfps = vf;
-  set_res();
-}
+// Video resolution control panel
+$( document.body ).on( 'click', '#load_predefined_video li', function( event ) {
+      var $target = $( event.currentTarget );
+      var resolution = $target.text().split("x");
+      document.getElementById("vwidth").value = resolution[0];
+      document.getElementById("vheight").value = resolution[1];
+//      alert( "Resolution set to : " + vidw + " width " + vidh + " height" );
+      parent.$('#applyres_video').trigger('click');
+      return false;
+   });
 
-function set_bfps_res(bf) {
-  bfps = bf;
-  set_res();
-}
+// Video resolution submit
+$( document.body ).on( 'click', '#applyres_video', function() {
+	  vidw = document.getElementById("vwidth").value;
+	  vidh = document.getElementById("vheight").value;
+	  set_res();
+   });
 
-function set_image_res(iw, ih) { 
-  imgw = iw;
-  imgh = vh;  
-  set_res();
-}
+
+
+// Image resolution control panel
+$( document.body ).on( 'click', '#load_predefined_image li', function( event ) {
+      var $target = $( event.currentTarget );
+      var resolution = $target.text().split("x");
+      document.getElementById("iwidth").value = resolution[0];
+      document.getElementById("iheight").value = resolution[1];
+//      alert( "Resolution set to : " + vidw + " width " + vidh + " height" );
+      parent.$('#applyres_image').trigger('click');
+      return false;
+   });
+
+// Image resolution submit
+$( document.body ).on( 'click', '#applyres_image', function() {
+	  imgw = document.getElementById("iwidth").value;
+	  imgh = document.getElementById("iheight").value;
+	  set_res();
+   });
+
+
+
+// fps submit
+$( document.body ).on( 'click', '#applyfps', function() {
+	  vfps = document.getElementById("vfps").value;
+	  bfps = document.getElementById("bvfps").value;
+	  set_res();
+   });
+
+
 
 function set_ce() {
   
@@ -351,6 +379,7 @@ function reload_ajax (last) {
 }
 
 
+
 //
 // Ajax Commands
 //
@@ -366,6 +395,7 @@ else {
 function send_cmd (cmd, value) {
   ajax_cmd.open("GET","raspimjpeg/" + cmd + "/" + value,true);
   ajax_cmd.send();
+
 }
 
 //
